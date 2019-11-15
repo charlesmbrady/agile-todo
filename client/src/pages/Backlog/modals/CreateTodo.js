@@ -1,14 +1,14 @@
 import React from "react";
-// import "./style.css";
+import "./style.css";
 // import AUTH from "../../utils/AUTH";
 // import API from "../../utils/API";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 export default function CreateTodo({ isOpen, toggle, userId }) {
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
+    <Modal className="my-modal" isOpen={isOpen} toggle={toggle}>
       <ModalHeader toggle={toggle}>Create Todo</ModalHeader>
-      <ModalBody>Add todo form here</ModalBody>
+      <ModalBody>"Create" Todo form here</ModalBody>
       <ModalFooter>
         <Button color="primary" onClick={toggle}>
           Submit

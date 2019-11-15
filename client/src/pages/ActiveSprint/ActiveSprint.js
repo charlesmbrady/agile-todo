@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import AUTH from "../../utils/AUTH";
 import API from "../../utils/API";
 
-export default function ActiveSprint() {
+export default function ActiveSprint({ setAuthenticated }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
