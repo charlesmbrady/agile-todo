@@ -21,10 +21,10 @@ export default function CreateTodo({
   userId,
   updateTodosList
 }) {
-  const [subject, setSubject] = useState("Subject");
-  const [description, setDescription] = useState("Description");
-  const [priority, setPriority] = useState("Medium");
-  const [points, setPoints] = useState(0);
+  const [subject, setSubject] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [priority, setPriority] = useState(null);
+  const [points, setPoints] = useState(null);
 
   const createTodo = () => {
     const todo = {
@@ -35,7 +35,10 @@ export default function CreateTodo({
       user: userId
     };
     API.createTodo(todo).then(todoResponse => {
-      updateTodosList(todoResponse.data);
+      if (todoResponse.status === 200) {
+        updateTodosList(todoResponse.data);
+        toggle();
+      }
     });
   };
 
@@ -74,8 +77,8 @@ export default function CreateTodo({
               value={priority}
               onChange={e => setPriority(e.target.value)}
             >
-              <option>High</option>
               <option>Medium</option>
+              <option>High</option>
               <option>Low</option>
             </Input>
           </FormGroup>
@@ -94,7 +97,7 @@ export default function CreateTodo({
       </ModalBody>
       <ModalFooter>
         <button onClick={() => createTodo()}>createtodo</button>
-        <Button color="primary" onClick={toggle}>
+        <Button color="primary" onClick={() => createTodo()}>
           Submit
         </Button>{" "}
         <Button color="secondary" onClick={toggle}>

@@ -12,7 +12,7 @@ module.exports = {
   },
   getAllSprintsByUserId: function(req, res) {
     db.Sprint.find({ user: req.params.id })
-      .populate("todos")
+      .populate("todos") // might want to remove this actually.... depending on how the backlog page gets rendered
       .then(dbSprints => {
         res.json(dbSprints);
       });

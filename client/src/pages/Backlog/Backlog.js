@@ -26,9 +26,7 @@ export default function Backlog({ setAuthenticated }) {
     setCreateTodoModal(!createTodoModal);
   };
 
-  const createTodo = () => {};
   const editTodo = () => {};
-  const createSprint = () => {};
 
   useEffect(() => {
     //First make a call to get userId to get respective todos
@@ -59,10 +57,17 @@ export default function Backlog({ setAuthenticated }) {
     setTodosList(tempTodos);
   };
 
+  const addToSprintsList = sprint => {
+    const tempSprints = [...sprintsList];
+    tempSprints.unshift(sprint);
+    setSprintsList(tempSprints);
+  };
+
   return (
     <div className="backlog-wrapper">
       <h1>Backlog</h1>
       <button onClick={() => toggleCreateTodoModal()}>Create Todo</button>
+      <button onClick={() => toggleCreateSprintModal()}>Create Sprint</button>
       <Table responsive hover>
         <tbody>
           {todosList.map((todo, i) => (
@@ -89,6 +94,7 @@ export default function Backlog({ setAuthenticated }) {
           toggle={setTodo}
           userId={user.id}
           todo={todo}
+          sprintsList={sprintsList}
         />
       )}
       {createSprintModal && (
@@ -96,6 +102,7 @@ export default function Backlog({ setAuthenticated }) {
           isOpen={createSprintModal}
           toggle={toggleCreateSprintModal}
           userId={user.id}
+          addToSprintsList={addToSprintsList}
         />
       )}
     </div>

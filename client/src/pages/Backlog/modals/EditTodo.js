@@ -15,7 +15,13 @@ import {
   FormText
 } from "reactstrap";
 
-export default function EditTodo({ isOpen, toggle, userId, todo }) {
+export default function EditTodo({
+  isOpen,
+  toggle,
+  userId,
+  todo,
+  sprintsList
+}) {
   const [newTodo, setNewTodo] = useState(todo.subject);
   const updateTodo = () => {
     const tempTodo = { ...newTodo };
@@ -36,7 +42,6 @@ export default function EditTodo({ isOpen, toggle, userId, todo }) {
             <Label for="description">Description</Label>
             <Input type="textarea" name="text" id="description" />
           </FormGroup>
-
           <FormGroup>
             <Label for="priority">Priority</Label>
             <Input type="select" name="select" id="priority">
@@ -48,6 +53,17 @@ export default function EditTodo({ isOpen, toggle, userId, todo }) {
           <FormGroup>
             <Label for="points">Points</Label>
             <Input type="number" name="number" id="points" placeholder="" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="sprint">Sprint</Label>
+            <Input type="select" name="select" id="sprint">
+              {sprintsList.map(sprint => (
+                <option value={sprint._id}>{sprint.name}</option>
+              ))}
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </Input>
           </FormGroup>
         </Form>
       </ModalBody>
