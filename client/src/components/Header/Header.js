@@ -68,12 +68,17 @@ export default function Header({ authenticated, setAuthenticated }) {
                   Menu
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <Link to="/dashboard">
+                  <Link to="/dashboard" disabled>
                     <DropdownItem className="nav-text">Dashboard</DropdownItem>
                   </Link>
-                  {/* <Link to="/login">
-                    <DropdownItem>Login</DropdownItem>
-                  </Link> */}
+                  <Link to="/backlog">
+                    <DropdownItem className="nav-text">Backlog</DropdownItem>
+                  </Link>
+                  <Link to="/activesprint">
+                    <DropdownItem className="nav-text">
+                      Active Sprint
+                    </DropdownItem>
+                  </Link>
                   <DropdownItem divider />
                   <Link to="/">
                     <DropdownItem onClick={() => logout()} className="nav-text">
