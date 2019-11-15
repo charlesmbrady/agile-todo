@@ -71,11 +71,15 @@ export default function Backlog({ setAuthenticated }) {
       <Table responsive hover>
         <tbody>
           {todosList.map((todo, i) => (
-            <tr key={i} onClick={() => setTodo(todo)}>
-              <td>Type</td>
+            <tr
+              className="todo-list-item"
+              key={i}
+              onClick={() => setTodo(todo)}
+            >
+              <td>{todo.type}</td>
               <td>{todo.subject}</td>
-              <td>priority</td>
-              <td>points</td>
+              <td>{todo.priority}</td>
+              <td>{todo.points}</td>
             </tr>
           ))}
         </tbody>
