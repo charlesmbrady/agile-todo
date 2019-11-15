@@ -16,7 +16,7 @@ import {
 import { Redirect, Link } from "react-router-dom";
 import AUTH from "../../utils/AUTH";
 
-export default function Header({ authenticated, setAuthenticated }) {
+export default function Header({ authenticated, setAuthenticated, setUser }) {
   const [isOpen, setIsOpen] = useState(false);
   const [redirect] = useState(false);
 
@@ -33,6 +33,7 @@ export default function Header({ authenticated, setAuthenticated }) {
       if (res.status === 200) {
         console.log("logged out");
         setAuthenticated(false);
+        setUser({});
       }
     });
   };

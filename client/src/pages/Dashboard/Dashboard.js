@@ -1,19 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import AUTH from "../../utils/AUTH";
 import API from "../../utils/API";
 
-export default function Dashboard() {
+export default function Dashboard({ setAuthenticated }) {
+  const [user, setUser] = useState({});
+
   useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = () => {
     AUTH.checkToken().then(res => {
-      console.log(res);
-    });
-  });
-  const createDecision = () => {
-    API.createDecision().then(res => {
-      console.log(res);
+      if (res.status === 200) {
+        // setAuthenticated(true);
+        setUser({
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          id: res.data.id
+        });
+      } else {
+        setAuthenticated(false);
+        setUser({});
+      }
     });
   };
+
   const ping = () => {
     API.ping().then(res => {
       console.log(res);
@@ -23,7 +35,7 @@ export default function Dashboard() {
     <div>
       <h1>Dashboard</h1>
       <button onClick={() => ping()}>Ping</button>
-      <button onClick={() => createDecision()}>Create Decision</button>
+      <button>Get Cookie not functional</button>
     </div>
   );
 }

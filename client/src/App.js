@@ -13,13 +13,20 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
 
   const checkAuth = () => {
     AUTH.checkToken().then(res => {
       if (res.status === 200) {
         setAuthenticated(true);
+        setUser({
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          id: res.data.id
+        });
       } else {
         setAuthenticated(false);
+        setUser({});
       }
     });
   };
@@ -35,6 +42,7 @@ export default function App() {
         <Header
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
+          setUser={setUser}
         />
 
         <Switch>
@@ -46,6 +54,8 @@ export default function App() {
           </Route>
           <ProtectedRoute
             path="/dashboard"
+            user={user}
+            setUser={setUser}
             component={Dashboard}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
@@ -55,6 +65,7 @@ export default function App() {
           <ProtectedRoute
             path="/backlog"
             component={Backlog}
+            user={user}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
             loading={loading}
@@ -63,6 +74,7 @@ export default function App() {
           <ProtectedRoute
             path="/activesprint"
             component={ActiveSprint}
+            user={user}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
             loading={loading}

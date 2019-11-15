@@ -77,8 +77,16 @@ module.exports = {
     });
   },
   checkToken: function(req, res) {
-    res.sendStatus(200);
+    const decoded = jwt.decode(req.cookies.token);
+    const name = decoded.username;
+    const user = {
+      firstName: decoded.firstName,
+      lastName: decoded.lastName,
+      id: decoded._id
+    };
+    res.status(200).send(user);
   },
+  getUser: function(req, res) {},
   logout: function(req, res) {
     res.clearCookie("token");
     res.send("cookie cleared");
