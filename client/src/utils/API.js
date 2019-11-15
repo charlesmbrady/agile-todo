@@ -10,5 +10,20 @@ export default {
     return axios.get(`/api/todos/user/${userId}`).catch(err => {
       throw err;
     });
+  },
+  getAllSprints: function(userId) {
+    return axios.get(`/api/sprints/user/${userId}`).catch(err => {
+      throw err;
+    });
+  },
+  createTodo: function(todo) {
+    return axios.post(`/api/todos`, todo).catch(err => {
+      throw err;
+    });
+  },
+  updateTodo: function(todo) {
+    return axios.put(`/api/todos`, todo).catch(err => {
+      throw err;
+    });
   }
 };

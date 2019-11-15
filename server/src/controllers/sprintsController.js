@@ -10,11 +10,16 @@ module.exports = {
       res.json(dbSprint);
     });
   },
-  getAllSprints: function(req, res) {},
+  getAllSprintsByUserId: function(req, res) {
+    db.Sprint.find({ user: req.params.id })
+      .populate("todos")
+      .then(dbSprints => {
+        res.json(dbSprints);
+      });
+  },
   getSprintById: function(req, res) {
     db.Sprint.findById(req.params.id)
       .populate("todos")
-      .populate("user")
       .then(dbSprint => {
         res.json(dbSprint);
       });

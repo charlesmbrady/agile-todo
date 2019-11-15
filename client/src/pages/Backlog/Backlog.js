@@ -11,6 +11,9 @@ export default function Backlog({ setAuthenticated }) {
   const [user, setUser] = useState({});
   const [todo, setTodo] = useState(null);
   const [todosList, setTodosList] = useState([{}]);
+  const [sprint, setSprint] = useState(null);
+  const [sprintsList, setSprintsList] = useState([{}]);
+
   //Modals
   const [createSprintModal, setCreateSprintModal] = useState(false);
   const [createTodoModal, setCreateTodoModal] = useState(false);
@@ -22,20 +25,6 @@ export default function Backlog({ setAuthenticated }) {
   const toggleCreateTodoModal = () => {
     setCreateTodoModal(!createTodoModal);
   };
-  const toggleEditTodoModal = todo => {
-    if (todo) {
-      // setTodo(todo);
-      setEditTodoModal(!editTodoModal);
-    } else {
-      // setTodo(null);
-      setEditTodoModal(!editTodoModal);
-    }
-    // setEditTodoModal(!editTodoModal);
-  };
-
-  useEffect(() => {
-    setEditTodoModal(!editTodoModal);
-  }, [todo]);
 
   const createTodo = () => {};
   const editTodo = () => {};
@@ -53,6 +42,9 @@ export default function Backlog({ setAuthenticated }) {
         // with the userId set, get all the todos for the user
         API.getAllTodos(res.data.id).then(todosResponse => {
           setTodosList(todosResponse.data);
+          API.getAllSprints(res.data.id).then(sprintsResponse => {
+            setSprintsList(sprintsResponse.data);
+          });
         });
       } else {
         setAuthenticated(false);
@@ -61,6 +53,12 @@ export default function Backlog({ setAuthenticated }) {
     });
   }, []);
 
+  const updateTodosList = todo => {
+    const tempTodos = [...todosList];
+    tempTodos.unshift(todo);
+    setTodosList(tempTodos);
+  };
+
   return (
     <div className="backlog-wrapper">
       <h1>Backlog</h1>
@@ -68,9 +66,9 @@ export default function Backlog({ setAuthenticated }) {
       <Table responsive hover>
         <tbody>
           {todosList.map((todo, i) => (
-            <tr key={i} onClick={toggleEditTodoModal}>
+            <tr key={i} onClick={() => setTodo(todo)}>
               <td>Type</td>
-              <td>subject</td>
+              <td>{todo.subject}</td>
               <td>priority</td>
               <td>points</td>
             </tr>
@@ -82,12 +80,13 @@ export default function Backlog({ setAuthenticated }) {
           isOpen={createTodoModal}
           toggle={toggleCreateTodoModal}
           userId={user.id}
+          updateTodosList={updateTodosList}
         />
       )}
-      {editTodoModal && (
+      {todo && (
         <EditTodo
           isOpen={editTodoModal}
-          toggle={toggleEditTodoModal}
+          toggle={setTodo}
           userId={user.id}
           todo={todo}
         />

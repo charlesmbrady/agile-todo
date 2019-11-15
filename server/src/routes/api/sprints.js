@@ -9,6 +9,8 @@ router
   .get(sprintsController.getAllSprints)
   .put(sprintsController.updateSprintById);
 
+router.route("/user/:id").get(sprintsController.getAllSprintsByUserId);
+
 router.route("/:id").get(sprintsController.getSprintById);
 
 module.exports = router;
