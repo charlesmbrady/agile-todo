@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Backlog from "./pages/Backlog/Backlog";
+import ActiveSprint from "./pages/ActiveSprint/ActiveSprint";
 import Header from "./components/Header/Header";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
@@ -45,6 +47,22 @@ export default function App() {
           <ProtectedRoute
             path="/dashboard"
             component={Dashboard}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            loading={loading}
+            setLoading={setLoading}
+          />
+          <ProtectedRoute
+            path="/backlog"
+            component={Backlog}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            loading={loading}
+            setLoading={setLoading}
+          />
+          <ProtectedRoute
+            path="/activesprint"
+            component={ActiveSprint}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
             loading={loading}
