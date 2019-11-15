@@ -23,9 +23,12 @@ module.exports = {
     });
   },
   getAllTodosByUserId: function(req, res) {
-    db.Todo.find({ user: req.params.id }).then(dbTodos => {
-      res.json(dbTodos);
-    });
+    db.Todo.find({ user: req.params.id })
+      .sort({ lastUpdateDate: -1 })
+      // .sort({ subject: -1 })
+      .then(dbTodos => {
+        res.json(dbTodos);
+      });
   },
   getTodoById: function(req, res) {
     db.Todo.findById(req.params.id)
