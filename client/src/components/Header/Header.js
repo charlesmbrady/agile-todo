@@ -42,7 +42,7 @@ export default function Header({ authenticated, setAuthenticated }) {
       {renderRedirect()}
       <Navbar color="light" light expand="md">
         <NavbarBrand className="nav-text" href="/">
-          MERN starter
+          Agile Todos
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

@@ -7,6 +7,8 @@ const sprintSchema = new Schema({
   createdDate: { type: Date, default: Date.now }, //this will update everytime saved unless i give it a value
   lastUpdateDate: { type: Date, default: Date.now }, //this will update everytime saved unless i give it a value
   startDate: { type: Date },
+  pointProjection: { type: Number, default: 0 },
+  completedPoints: { type: Number, default: 0 },
   endDate: { type: Date, default: null },
   status: { type: String, default: "not started" },
   notes: { type: String, default: null },
