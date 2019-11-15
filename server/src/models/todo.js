@@ -12,7 +12,7 @@ const todoSchema = new Schema({
   endDate: { type: Date, default: null },
   notes: { type: String, default: null },
   sprint: { type: Schema.Types.ObjectId, ref: "Sprint" },
-  estimatedPoints: { type: String, default: null },
+  points: { type: String, default: null },
   priority: { type: String, default: null },
   status: { type: String, default: null }
 });
