@@ -35,6 +35,7 @@ module.exports = {
     db.Sprint.findByIdAndUpdate(id, update, options).then(updatedSprint => {
       res.json(updatedSprint);
     });
-  },
-  getBurnupBySprintId: function(req, res) {}
+  }
+  // ,
+  // getBurnupBySprintId: function(req, res) {}
 };

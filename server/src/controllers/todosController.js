@@ -11,7 +11,7 @@ module.exports = {
     });
   },
   updateTodo: function(req, res) {
-    const id = req.body._id;
+    const id = req.body.id;
     const update = req.body;
     const options = {
       // useFindAndModify: false,

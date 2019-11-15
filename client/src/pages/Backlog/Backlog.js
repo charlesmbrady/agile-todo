@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import AUTH from "../../utils/AUTH";
-import API from "../../utils/API";
+import API from "../../utils/API.js";
 import CreateSprint from "./modals/CreateSprint";
 import CreateTodo from "./modals/CreateTodo";
 import EditTodo from "./modals/EditTodo";
@@ -51,9 +51,14 @@ export default function Backlog({ setAuthenticated }) {
     });
   }, []);
 
-  const updateTodosList = todo => {
+  const updateTodosList = givenTodo => {
     const tempTodos = [...todosList];
-    tempTodos.unshift(todo);
+
+    tempTodos.forEach((loopTodo, i) => {
+      if (loopTodo._id === givenTodo._id) {
+        tempTodos[i] = givenTodo;
+      }
+    });
     setTodosList(tempTodos);
   };
 
@@ -73,7 +78,7 @@ export default function Backlog({ setAuthenticated }) {
           {todosList.map((todo, i) => (
             <tr
               className="todo-list-item"
-              key={i}
+              index={i}
               onClick={() => setTodo(todo)}
             >
               <td>{todo.type}</td>
@@ -98,6 +103,9 @@ export default function Backlog({ setAuthenticated }) {
           toggle={setTodo}
           userId={user.id}
           todo={todo}
+          updateTodosList={updateTodosList}
+          // subject={todo.subject}
+          // description={todo.description}
           sprintsList={sprintsList}
         />
       )}
