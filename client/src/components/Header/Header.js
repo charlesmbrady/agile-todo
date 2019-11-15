@@ -68,7 +68,7 @@ export default function Header({ authenticated, setAuthenticated }) {
                   Menu
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <Link to="/dashboard" disabled>
+                  <Link to="/dashboard">
                     <DropdownItem className="nav-text">Dashboard</DropdownItem>
                   </Link>
                   <Link to="/backlog">
