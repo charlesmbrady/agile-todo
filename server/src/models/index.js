@@ -1,4 +1,6 @@
 module.exports = {
   Decision: require("./decision"),
-  User: require("./user")
+  User: require("./user"),
+  Todo: require("./todo"),
+  Sprint: require("./sprint")
 };

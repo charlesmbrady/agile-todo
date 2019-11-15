@@ -1,5 +1,5 @@
 {
-  "name": "mern-auth-cra",
+  "name": "agile-todo",
   "version": "1.0.0",
   "description": "",
   "main": "server/src/server.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/charlesmbrady/mern-auth-cra.git"
+    "url": "git+https://github.com/charlesmbrady/agile-todo.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/charlesmbrady/mern-auth-cra/issues"
+    "url": "https://github.com/charlesmbrady/agile-todo/issues"
   },
-  "homepage": "https://github.com/charlesmbrady/mern-auth-cra#readme",
+  "homepage": "https://github.com/charlesmbrady/agile-todo#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.4",
