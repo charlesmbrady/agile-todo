@@ -1,0 +1,31 @@
+.form-header {
+  text-align: center;
+  color: #000c98;
+}
+.form-wrapper {
+  margin: 0 auto;
+  width: 25%;
+  min-width: 300px;
+}
+.form-element {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.form-input {
+  width: 90%;
+  border-radius: 8px;
+  padding: 0px 5px 0px 5px;
+  border-style: none;
+  height: 40px;
+  font-size: 20px;
+}
+.form-label {
+  color: darkslategrey;
+}
+.form-button {
+  margin: 0 auto;
+}
+.form-options {
+  display: inline-block;
+  margin-right: 5px;
+}

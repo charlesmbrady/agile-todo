@@ -1,0 +1,128 @@
+# Javascript Node CircleCI 2.0 configuration file
+
+defaults: &defaults
+  docker:
+    - image: circleci/openjdk:8u171-jdk-node-browsers
+    - image: circleci/mongo:4.2
+
+  working_directory: ~/mern-auth-cra
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          name: Restore backend/general packages
+          keys:
+            - v1-dependencies-{{.Branch}}-{{ checksum "package.json" }}
+            - v1-dependencies-{{.Branch}}-
+            - v1-dependencies-
+
+      - run:
+          name: Install backend and general dependencies
+          command: npm install
+
+      - save_cache:
+          name: Save backend/general packages cache
+          paths:
+            - ~/.cache/node_modules
+          key: v1-dependencies-{{.Branch}}-{{ checksum "package.json" }}
+
+      - restore_cache:
+          name: Restore frontend packages
+          keys:
+            - v1-dependencies-{{.Branch}}-{{ checksum "client/package.json" }}
+            - v1-dependencies-{{.Branch}}-
+            - v1-dependencies-
+
+      - run:
+          name: Install frontend packages
+          command: cd client && npm install
+
+      - save_cache:
+          paths:
+            - ~/.cache/node_modules
+            - ~/client/.cache/node_modules
+          key: v1-dependencies-{{.Branch}}-{{ checksum "client/package.json" }}
+
+      - run:
+          name: Build frontend react app
+          command: cd client && npm run build
+
+      # - run:
+      #     name: Analyze react app bundle
+      #     command: cd client && yarn analyze
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - mern-auth
+            - .cache
+  # js_unit_tests:
+  #   <<: *defaults
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: Frontend Unit tests
+  #         command: |
+  #           cd client
+  #           yarn run test
+  # backend_unit_tests:
+  #   <<: *defaults
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: Backend Unit Tests
+  #         command: yarn run backend-unit-tests
+  # ui_tests:
+  #   <<: *defaults
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: Run backend
+  #         command: yarn run backend
+  #         background: true
+  #     - run:
+  #         name: Run frontend
+  #         command: yarn run frontend
+  #         background: true
+  #     - run:
+  #         name: Run UI tests
+  #         command: yarn run ui-tests
+  # api_tests:
+  #   <<: *defaults
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: Run backend
+  #         command: yarn run backend
+  #         background: true
+  #     - run:
+  #         name: Run local API tests
+  #         command: yarn wait-on http://localhost:3001 && yarn run api-tests
+
+workflows:
+  version: 2
+  starter-workflow:
+    jobs:
+      - build
+      # - js_unit_tests:
+      #     requires:
+      #       - build
+      # - backend_unit_tests:
+      #     requires:
+      #       - build
+      # - api_tests:
+      #     requires:
+      #       - build
+      # - ui_tests:
+      #     requires:
+      #       - build
