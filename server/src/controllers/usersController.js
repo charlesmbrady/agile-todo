@@ -36,7 +36,8 @@ module.exports = {
           const payload = {
             username: savedUser.username,
             firstName: savedUser.firstName,
-            lastName: savedUser.lastName
+            lastName: savedUser.lastName,
+            _id: savedUser._id
           };
           const signOptions = {
             expiresIn: "1h"
@@ -50,7 +51,6 @@ module.exports = {
   },
   authenticate: function(req, res) {
     const { username, password } = req.body;
-    console.log("hit auth");
     db.User.findOne({ username }).then(userMatch => {
       //check username
       if (!userMatch) {
@@ -64,7 +64,8 @@ module.exports = {
         const payload = {
           username: userMatch.username,
           firstName: userMatch.firstName,
-          lastName: userMatch.lastName
+          lastName: userMatch.lastName,
+          _id: userMatch._id
         };
         const signOptions = {
           expiresIn: "1h"
