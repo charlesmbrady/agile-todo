@@ -13,6 +13,7 @@ export default function Backlog({ setAuthenticated }) {
   const [todosList, setTodosList] = useState([{}]);
   const [sprint, setSprint] = useState(null);
   const [sprintsList, setSprintsList] = useState([{}]);
+  const [activeSprint, setActiveSprint] = useState(null);
 
   //Modals
   const [createSprintModal, setCreateSprintModal] = useState(false);
@@ -41,6 +42,11 @@ export default function Backlog({ setAuthenticated }) {
         API.getAllTodos(res.data.id).then(todosResponse => {
           setTodosList(todosResponse.data);
           API.getAllSprints(res.data.id).then(sprintsResponse => {
+            sprintsResponse.data.forEach(sprint => {
+              if (sprint.status === "active" || sprint.status == "underway") {
+                setActiveSprint(sprint);
+              }
+            });
             setSprintsList(sprintsResponse.data);
           });
         });
@@ -53,12 +59,17 @@ export default function Backlog({ setAuthenticated }) {
 
   const updateTodosList = givenTodo => {
     const tempTodos = [...todosList];
+    let newTodo = true;
 
     tempTodos.forEach((loopTodo, i) => {
       if (loopTodo._id === givenTodo._id) {
         tempTodos[i] = givenTodo;
+        newTodo = false;
       }
     });
+    if (newTodo) {
+      tempTodos.unshift(givenTodo);
+    }
     setTodosList(tempTodos);
   };
 
@@ -72,7 +83,24 @@ export default function Backlog({ setAuthenticated }) {
     <div className="backlog-wrapper">
       <h1>Backlog</h1>
       <button onClick={() => toggleCreateTodoModal()}>Create Todo</button>
-      <button onClick={() => toggleCreateSprintModal()}>Create Sprint</button>
+      {!activeSprint && (
+        <button onClick={() => toggleCreateSprintModal()}>Create Sprint</button>
+      )}
+      {activeSprint && (
+        <div className="sprint-wrapper">
+          <div className="sprint-wrapper-header">
+            <h6>{activeSprint.name}</h6>
+            {activeSprint.status == "active" && <button>Start Sprint</button>}
+          </div>
+          <div className="sprint-table-wrapper">
+            {todosList
+              .filter(todo => todo.sprint == activeSprint._id)
+              .map((todo, i) => (
+                <p>{todo.subject}</p>
+              ))}
+          </div>
+        </div>
+      )}
       <Table responsive hover>
         <tbody>
           {todosList.map((todo, i) => (
@@ -114,6 +142,7 @@ export default function Backlog({ setAuthenticated }) {
           isOpen={createSprintModal}
           toggle={toggleCreateSprintModal}
           userId={user.id}
+          setActiveSprint={setActiveSprint}
           addToSprintsList={addToSprintsList}
         />
       )}

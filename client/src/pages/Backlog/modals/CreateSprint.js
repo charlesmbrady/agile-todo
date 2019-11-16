@@ -18,7 +18,8 @@ export default function CreateSprint({
   isOpen,
   toggle,
   userId,
-  addToSprintsList
+  addToSprintsList,
+  setActiveSprint
 }) {
   const [name, setName] = useState(null);
   const [pointsProjection, setPointsProjection] = useState(null);
@@ -34,6 +35,7 @@ export default function CreateSprint({
         // updateTodosList(todoResponse.data); this works
         // console.log("sprint response data: " + sprintResponse.data.active);
         addToSprintsList(sprintResponse.data);
+        setActiveSprint(sprintResponse.data);
         toggle();
       }
     });
