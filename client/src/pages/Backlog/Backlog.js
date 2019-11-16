@@ -88,16 +88,28 @@ export default function Backlog({ setAuthenticated }) {
       )}
       {activeSprint && (
         <div className="sprint-wrapper">
-          <div className="sprint-wrapper-header">
-            <h6>{activeSprint.name}</h6>
-            {activeSprint.status == "active" && <button>Start Sprint</button>}
+          {/* {!todosList.filter(todo => todo.sprint == activeSprint._id) && (
+            <div className="sprint-no-feedback">sprint no feedback</div>
+          )} */}
+
+          <div className="sprint-header-wrapper">
+            <h6 className="sprint-header-item">
+              Active Sprint - {activeSprint.name}
+            </h6>
+            {activeSprint.status == "active" && (
+              <button className="sprint-header-item" id="sprint-start-button">
+                Start Sprint
+              </button>
+            )}
           </div>
-          <div className="sprint-table-wrapper">
-            {todosList
-              .filter(todo => todo.sprint == activeSprint._id)
-              .map((todo, i) => (
-                <p>{todo.subject}</p>
-              ))}
+          <div className="sprint-body-wrapper">
+            <div className="sprint-table-wrapper">
+              {todosList
+                .filter(todo => todo.sprint == activeSprint._id)
+                .map((todo, i) => (
+                  <p>{todo.subject}</p>
+                ))}
+            </div>
           </div>
         </div>
       )}

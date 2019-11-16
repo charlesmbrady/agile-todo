@@ -1,3 +1,26 @@
 .todo-list-item:hover {
   cursor: pointer;
 }
+
+.backlog-wrapper {
+  width: 90%;
+  margin: 0 auto;
+  min-width: 300px;
+}
+.sprint-no-feedback {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+}
+.sprint-wrapper {
+  width: 95%;
+  margin: 0 auto;
+  min-height: 150px;
+  position: relative;
+}
+.sprint-header-item {
+  display: inline-block;
+}
+#sprint-start-button {
+  float: right;
+}
