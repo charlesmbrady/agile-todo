@@ -1,0 +1,30 @@
+.todo-card-wrapper {
+  background: white;
+  border: 1px solid blue;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 5px;
+}
+.todo-card-wrapper:hover {
+  box-shadow: 4px 4px 4px gray;
+  transition-duration: 220ms;
+  cursor: pointer;
+}
+
+.todo-card-body-wrapper {
+  text-align: left;
+  padding: 10px;
+}
+
+.todo-card-footer-wrapper {
+  border-top: 1px solid gray;
+  background: whitesmoke;
+}
+.todo-card-footer-item {
+  display: inline;
+}
+
+.todo-card-footer-item + .todo-card-footer-item {
+  margin-left: 30px;
+}

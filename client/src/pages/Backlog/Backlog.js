@@ -6,7 +6,12 @@ import CreateSprint from "./modals/CreateSprint";
 import CreateTodo from "./modals/CreateTodo";
 import EditTodo from "./modals/EditTodo";
 import { Table } from "reactstrap";
+import TodoListItem from "../../components/TodoListItem/TodoListItem";
 
+// need to chop some of this up and put a useEffect that updates especially the active sprint whenver
+// a todo is update.  so whenever the todos list changes, the active sprint should be recalled for
+
+// ^ disregard, just need to update the sprint itself iwth the todo id whenever a todo is updated
 export default function Backlog({ setAuthenticated }) {
   const [user, setUser] = useState({});
   const [todo, setTodo] = useState(null);
@@ -27,7 +32,13 @@ export default function Backlog({ setAuthenticated }) {
     setCreateTodoModal(!createTodoModal);
   };
 
-  const editTodo = () => {};
+  const startSprint = () => {
+    let tempActiveSprint = { ...activeSprint };
+    tempActiveSprint.status = "inProgress";
+    API.startSprint({ _id: tempActiveSprint._id }).then(sprintResponse => {
+      setActiveSprint(tempActiveSprint);
+    });
+  };
 
   useEffect(() => {
     //First make a call to get userId to get respective todos
@@ -43,7 +54,7 @@ export default function Backlog({ setAuthenticated }) {
           setTodosList(todosResponse.data);
           API.getAllSprints(res.data.id).then(sprintsResponse => {
             sprintsResponse.data.forEach(sprint => {
-              if (sprint.status === "active" || sprint.status == "underway") {
+              if (sprint.status === "active" || sprint.status == "inProgress") {
                 setActiveSprint(sprint);
               }
             });
@@ -82,53 +93,76 @@ export default function Backlog({ setAuthenticated }) {
   return (
     <div className="backlog-wrapper">
       <h1>Backlog</h1>
-      <button onClick={() => toggleCreateTodoModal()}>Create Todo</button>
       {!activeSprint && (
         <button onClick={() => toggleCreateSprintModal()}>Create Sprint</button>
       )}
       {activeSprint && (
         <div className="sprint-wrapper">
-          {/* {!todosList.filter(todo => todo.sprint == activeSprint._id) && (
-            <div className="sprint-no-feedback">sprint no feedback</div>
-          )} */}
-
           <div className="sprint-header-wrapper">
             <h6 className="sprint-header-item">
               Active Sprint - {activeSprint.name}
             </h6>
             {activeSprint.status == "active" && (
-              <button className="sprint-header-item" id="sprint-start-button">
+              <button
+                onClick={() => startSprint()}
+                className="sprint-header-item"
+                id="sprint-start-button"
+              >
                 Start Sprint
               </button>
             )}
           </div>
           <div className="sprint-body-wrapper">
             <div className="sprint-table-wrapper">
-              {todosList
-                .filter(todo => todo.sprint == activeSprint._id)
-                .map((todo, i) => (
-                  <p>{todo.subject}</p>
-                ))}
+              <Table responsive hover>
+                <tbody>
+                  {todosList
+                    .filter(todo => todo.sprint == activeSprint._id)
+                    .map((todo, i) => (
+                      <TodoListItem
+                        todo={todo}
+                        key={i}
+                        setTodo={() => setTodo(todo)}
+                      />
+                    ))}
+                </tbody>
+              </Table>
             </div>
           </div>
         </div>
       )}
-      <Table responsive hover>
-        <tbody>
-          {todosList.map((todo, i) => (
-            <tr
-              className="todo-list-item"
-              index={i}
-              onClick={() => setTodo(todo)}
-            >
-              <td>{todo.type}</td>
-              <td>{todo.subject}</td>
-              <td>{todo.priority}</td>
-              <td>{todo.points}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+
+      <div className="sprint-wrapper">
+        <div className="sprint-header-wrapper">
+          <h6 className="sprint-header-item">
+            Backlog -{" "}
+            {todosList.filter(todo => todo.status === "backlog").length} Todos
+          </h6>
+          <button
+            id="create-todo-button"
+            onClick={() => toggleCreateTodoModal()}
+          >
+            Create Todo
+          </button>
+        </div>
+        <div className="sprint-body-wrapper">
+          <div className="sprint-table-wrapper">
+            <Table responsive hover>
+              <tbody>
+                {todosList
+                  .filter(todo => todo.status == "backlog")
+                  .map((todo, i) => (
+                    <TodoListItem
+                      todo={todo}
+                      key={i}
+                      setTodo={() => setTodo(todo)}
+                    />
+                  ))}
+              </tbody>
+            </Table>
+          </div>
+        </div>
+      </div>
       {createTodoModal && (
         <CreateTodo
           isOpen={createTodoModal}

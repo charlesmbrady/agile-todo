@@ -44,8 +44,10 @@ export default function CreateTodo({
 
   return (
     <Modal className="my-modal" isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}>Create Todo</ModalHeader>
-      <ModalBody>
+      <ModalHeader className="my-modal" toggle={toggle}>
+        Create Todo
+      </ModalHeader>
+      <ModalBody className="my-modal">
         <Form>
           <FormGroup>
             <Label for="subject">Subject</Label>
@@ -95,8 +97,7 @@ export default function CreateTodo({
           </FormGroup>
         </Form>
       </ModalBody>
-      <ModalFooter>
-        <button onClick={() => createTodo()}>createtodo</button>
+      <ModalFooter className="my-modal">
         <Button color="primary" onClick={() => createTodo()}>
           Submit
         </Button>{" "}

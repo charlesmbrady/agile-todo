@@ -1,0 +1,17 @@
+.swim-lanes-wrapper {
+  margin: 0 auto;
+  text-align: center;
+  display: table;
+  width: 95%;
+}
+.swim-lane-wrapper {
+  display: table-cell;
+  width: 30%;
+  text-align: center;
+  background: cyan;
+  padding: 10px;
+}
+
+/* .swim-lane-wrapper + .swim-lane-wrapper {
+  margin-left: 10px;
+} */

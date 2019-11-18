@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import "./style.css";
-// import AUTH from "../../utils/AUTH";
 import API from "../../../utils/API";
 import {
   Button,
@@ -20,14 +18,15 @@ export default function EditTodo({
   toggle,
   userId,
   todo,
-  sprintsList,
-  updateTodosList
+  sprintId
+  // updateTodosList
 }) {
   const [subject, setSubject] = useState(todo.subject);
   const [description, setDescription] = useState(todo.description);
   const [priority, setPriority] = useState(todo.priority);
   const [points, setPoints] = useState(todo.points);
-  const [sprint, setSprint] = useState(sprintsList[0]._id);
+  const [status, setStatus] = useState(todo.status);
+  const [sprint, setSprint] = useState(sprintId);
 
   const updateTodo = () => {
     const newTodo = {
@@ -38,13 +37,13 @@ export default function EditTodo({
       priority,
       points,
       sprint,
-      status: "ready",
-      user: userId
+      user: userId,
+      status
     };
 
     API.updateTodo(newTodo).then(todoResponse => {
       if (todoResponse.status === 200) {
-        updateTodosList(todoResponse.data);
+        // updateTodosList(todoResponse.data);
         //make api call to insert the todo id into the todos array on the sprint if the sprint is there
         // ***********************************
         // *********************************
@@ -106,22 +105,27 @@ export default function EditTodo({
             />
           </FormGroup>
           <FormGroup>
-            <Label for="sprint">Sprint</Label>
+            <Label for="status">Status</Label>
             <Input
               type="select"
               name="select"
-              id="sprint"
-              value={sprint}
-              onChange={e => setSprint(e.target.value)}
+              id="status"
+              value={status}
+              onChange={e => setStatus(e.target.value)}
             >
-              <option value={null}>Add to sprint...</option>
-              {sprintsList.map(sprint => (
-                <option
-                  value={sprint._id}
-                  onClick={() => setSprint(sprint._id)}
-                >
-                  {sprint.name}
-                </option>
+              <option>Select status</option>
+              <option value="ready" onClick={e => setStatus(e.target.value)}>
+                Ready
+              </option>
+              <option value="working" onClick={e => setStatus(e.target.value)}>
+                Working
+              </option>
+              <option
+                value="completed"
+                onClick={e => setStatus(e.target.value)}
+              >
+                Completed
+              </option>
               ))}
             </Input>
           </FormGroup>
