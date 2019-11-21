@@ -28,10 +28,14 @@
   color: white;
   font-weight: bold;
 }
+#create-sprint-button {
+  background: green;
+}
 
 #sprint-start-button:hover,
 #create-sprint-button:hover,
 #create-todo-button:hover {
   box-shadow: 0px 2px 2px 1px slategray;
   border: none;
+  cursor: pointer;
 }

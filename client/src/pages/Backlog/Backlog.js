@@ -112,6 +112,7 @@ export default function Backlog({ setAuthenticated }) {
       <div className="backlog-header-wrapper">
         {!activeSprint && (
           <button
+            id="create-sprint-button"
             className="backlog-header-item"
             onClick={() => toggleCreateSprintModal()}
           >

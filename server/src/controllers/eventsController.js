@@ -9,5 +9,13 @@ module.exports = {
     db.Event.create(newEvent).then(dbEvent => {
       res.json(dbEvent);
     });
+  },
+  getEventsBySprintId: function(req, res) {
+    id = req.params.id;
+    db.Event.find({ sprint: id })
+      .sort({ createdDate: 1 })
+      .then(eventsResponse => {
+        res.json(eventsResponse);
+      });
   }
 };

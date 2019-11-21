@@ -50,5 +50,10 @@ export default {
     return axios.post(`/api/events`, event).catch(err => {
       throw err;
     });
+  },
+  getEventsBySprintId: function(sprintId) {
+    return axios.get(`/api/events/sprint/${sprintId}`).catch(err => {
+      throw err;
+    });
   }
 };
