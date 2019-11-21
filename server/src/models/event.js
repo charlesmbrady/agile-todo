@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const eventSchema = new Schema({
-  description: { type: String, default: null },
+  // description: { type: String, default: null },
   type: { type: String, default: null },
   completedPoints: { type: Number, default: null },
-  pointScope: { type: Number, default: null },
-  sprint: { type: Schema.Types.ObjectId, ref: "Sprint" }
+  totalPoints: { type: Number, default: null },
+  sprint: { type: Schema.Types.ObjectId, ref: "Sprint" },
+  createdDate: { type: Date, default: Date.now }
 });
 
 const Event = mongoose.model("Event", eventSchema);

@@ -52,6 +52,16 @@ export default function ActiveSprint({ setAuthenticated }) {
     API.updateSprint(tempSprint).then(sprintUpdateResponse => {
       console.log("sprint update response " + sprintUpdateResponse);
       setRedirect(true);
+
+      const event = {
+        type: "sprint ended",
+        completedPoints: todosCompletedPoints,
+        totalPoints: todosTotalPoints,
+        sprint: sprint
+      };
+      API.createEvent(event).then(eventResponse => {
+        console.log(eventResponse.data);
+      });
     });
   };
 
@@ -152,6 +162,8 @@ export default function ActiveSprint({ setAuthenticated }) {
             userId={user.id}
             todo={todo}
             sprintId={sprint._id}
+            totalPoints={todosTotalPoints}
+            completedPoints={todosCompletedPoints}
             // updateTodosList={updateTodosList}
             // sprintsList={sprintsList}
           />

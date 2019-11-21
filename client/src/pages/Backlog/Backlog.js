@@ -37,6 +37,23 @@ export default function Backlog({ setAuthenticated }) {
     tempActiveSprint.status = "inProgress";
     API.startSprint({ _id: tempActiveSprint._id }).then(sprintResponse => {
       setActiveSprint(tempActiveSprint);
+
+      let totalPoints = 0;
+      todosList.forEach(todo => {
+        if (todo.sprint == activeSprint._id) {
+          totalPoints += parseInt(todo.points);
+        }
+      });
+
+      const event = {
+        type: "sprint started",
+        completedPoints: 0,
+        totalPoints: totalPoints,
+        sprint: activeSprint._id
+      };
+      API.createEvent(event).then(eventResponse => {
+        console.log(eventResponse.data);
+      });
     });
   };
 

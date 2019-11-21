@@ -18,7 +18,9 @@ export default function EditTodo({
   toggle,
   userId,
   todo,
-  sprintId
+  sprintId,
+  totalPoints,
+  completedPoints
   // updateTodosList
 }) {
   const [subject, setSubject] = useState(todo.subject);
@@ -48,6 +50,20 @@ export default function EditTodo({
         // ***********************************
         // *********************************
         // what if i do this on the backend in the update todo controller
+
+        let newCompletedPoints = parseInt(completedPoints) + parseInt(points);
+        const event = {
+          type: "todo completed",
+          completedPoints: newCompletedPoints,
+          totalPoints: totalPoints,
+          sprint: sprint
+        };
+        if (status === "completed") {
+          API.createEvent(event).then(eventResponse => {
+            console.log(eventResponse.data);
+          });
+        }
+
         toggle(null);
       }
     });
