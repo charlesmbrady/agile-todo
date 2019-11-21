@@ -92,10 +92,17 @@ export default function Backlog({ setAuthenticated }) {
 
   return (
     <div className="backlog-wrapper">
-      <h1>Backlog</h1>
-      {!activeSprint && (
-        <button onClick={() => toggleCreateSprintModal()}>Create Sprint</button>
-      )}
+      <div className="backlog-header-wrapper">
+        {!activeSprint && (
+          <button
+            className="backlog-header-item"
+            onClick={() => toggleCreateSprintModal()}
+          >
+            Create Sprint
+          </button>
+        )}
+      </div>
+
       {activeSprint && (
         <div className="sprint-wrapper">
           <div className="sprint-header-wrapper">

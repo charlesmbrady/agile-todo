@@ -7,6 +7,9 @@
   margin: 0 auto;
   min-width: 300px;
 }
+.backlog-header-item {
+  float: right;
+}
 .sprint-wrapper {
   width: 95%;
   margin: 0 auto;
@@ -17,6 +20,18 @@
   display: inline-block;
 }
 #sprint-start-button,
+#create-sprint-button,
 #create-todo-button {
   float: right;
+  background: #56b3ff;
+  border-radius: 7px;
+  color: white;
+  font-weight: bold;
+}
+
+#sprint-start-button:hover,
+#create-sprint-button:hover,
+#create-todo-button:hover {
+  box-shadow: 0px 2px 2px 1px slategray;
+  border: none;
 }
