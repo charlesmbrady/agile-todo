@@ -13,8 +13,8 @@ const todoSchema = new Schema({
   // notes: { type: String, default: null },
   sprint: { type: Schema.Types.ObjectId, ref: "Sprint" },
   points: { type: String, default: null },
-  priority: { type: String, default: "Medium" },
-  status: { type: String, default: "Backlog" }
+  priority: { type: String, default: "medium" },
+  status: { type: String, default: "backlog" } // 'ready', 'working', 'completed'
 });
 
 const Todo = mongoose.model("Todo", todoSchema);

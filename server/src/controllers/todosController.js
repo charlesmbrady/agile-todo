@@ -19,7 +19,16 @@ module.exports = {
     };
 
     db.Todo.findByIdAndUpdate(id, update, options).then(updatedTodo => {
-      res.json(updatedTodo);
+      if (update.sprint) {
+        db.Sprint.findByIdAndUpdate(update.sprint, {
+          $addToSet: { todos: updatedTodo }
+        }).then(sprintResponse => {
+          console.log("added apparently " + sprintResponse);
+          res.json(updatedTodo);
+        });
+      } else {
+        res.json(updatedTodo);
+      }
     });
   },
   getAllTodosByUserId: function(req, res) {

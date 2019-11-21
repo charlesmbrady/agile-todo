@@ -11,7 +11,7 @@ const sprintSchema = new Schema({
   pointProjection: { type: Number, default: 0 }, // only mess with this when starting sprint
   completedPoints: { type: Number, default: 0 }, // only mess with this when ending sprint
   endDate: { type: Date, default: null },
-  status: { type: String, default: "active" }, // active, underway, done
+  status: { type: String, default: "active" }, // active, inProgress, done
   // notes: { type: String, default: null },
   todos: [{ type: Schema.Types.ObjectId, ref: "Todo", default: null }]
 });

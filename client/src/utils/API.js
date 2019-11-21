@@ -32,7 +32,7 @@ export default {
     });
   },
   updateSprint: function(sprint) {
-    return axios.post(`/api/sprints`, sprint).catch(err => {
+    return axios.put(`/api/sprints`, sprint).catch(err => {
       throw err;
     });
   },

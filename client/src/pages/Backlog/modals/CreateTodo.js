@@ -9,6 +9,8 @@ import {
   ModalBody,
   ModalFooter,
   Form,
+  Row,
+  Col,
   FormGroup,
   Label,
   Input,
@@ -70,31 +72,38 @@ export default function CreateTodo({
               onChange={e => setDescription(e.target.value)}
             />
           </FormGroup>
-          <FormGroup>
-            <Label for="priority">Priority</Label>
-            <Input
-              type="select"
-              name="select"
-              id="priority"
-              value={priority}
-              onChange={e => setPriority(e.target.value)}
-            >
-              <option>Medium</option>
-              <option>High</option>
-              <option>Low</option>
-            </Input>
-          </FormGroup>
-          <FormGroup>
-            <Label for="points">Points</Label>
-            <Input
-              type="number"
-              name="number"
-              id="points"
-              placeholder=""
-              value={points}
-              onChange={e => setPoints(e.target.value)}
-            />
-          </FormGroup>
+
+          <Row form>
+            <Col md={2}>
+              <FormGroup>
+                <Label for="priority">Priority</Label>
+                <Input
+                  type="select"
+                  name="select"
+                  id="priority"
+                  value={priority}
+                  onChange={e => setPriority(e.target.value)}
+                >
+                  <option>Medium</option>
+                  <option>High</option>
+                  <option>Low</option>
+                </Input>
+              </FormGroup>
+            </Col>
+            <Col md={1}>
+              <FormGroup>
+                <Label for="points">Points</Label>
+                <Input
+                  type="number"
+                  name="number"
+                  id="points"
+                  placeholder=""
+                  value={points}
+                  onChange={e => setPoints(e.target.value)}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
         </Form>
       </ModalBody>
       <ModalFooter className="my-modal">

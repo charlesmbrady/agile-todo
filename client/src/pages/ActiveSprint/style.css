@@ -1,15 +1,55 @@
 .swim-lanes-wrapper {
   margin: 0 auto;
   text-align: center;
-  display: table;
-  width: 95%;
+  margin-top: 15px;
+
+  /* display: table; */
+  /* width: 95%; */
 }
-.swim-lane-wrapper {
-  display: table-cell;
-  width: 30%;
-  text-align: center;
-  background: cyan;
+.active-sprint-header-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+.active-sprint-header-item {
+  display: inline-block;
+}
+.active-sprint-header-item:first {
+  float: left;
+}
+.active-sprint-header-item:nth-child(2) {
+  margin-left: 40%;
+}
+.active-sprint-header-item:last-child {
+  float: right;
+}
+.swim-lane-body-wrapper {
+  background: #0d5c6383;
   padding: 10px;
+  border-top: 5px solid lightgray;
+}
+.swim-lane-header {
+  text-align: left;
+  padding-left: 10px;
+}
+
+.dates {
+  font-weight: 150;
+  font-size: 15px;
+}
+.points {
+  font-weight: 250;
+  font-size: 18px;
+}
+
+#end-sprint-button {
+  background: #56b3ff;
+  border-radius: 7px;
+  color: white;
+  font-weight: bold;
+}
+#end-sprint-button:hover {
+  box-shadow: 0px 3px 3px 2px slategray;
+  border: none;
 }
 
 /* .swim-lane-wrapper + .swim-lane-wrapper {

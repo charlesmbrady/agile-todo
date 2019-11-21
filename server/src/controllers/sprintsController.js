@@ -35,6 +35,21 @@ module.exports = {
     db.Sprint.findByIdAndUpdate(id, update, options).then(updatedSprint => {
       res.json(updatedSprint);
     });
+  },
+  getActiveSprint: function(req, res) {
+    db.Sprint.find({ status: "inProgress", user: req.params.id })
+      .populate("todos")
+      .then(dbSprint => {
+        console.log(dbSprint);
+        res.json(dbSprint);
+      });
+  },
+  activateSprint: function(req, res) {
+    db.Sprint.findByIdAndUpdate(req.body, {
+      $set: { status: "inProgress" }
+    }).then(sprintResponse => {
+      res.json(sprintResponse);
+    });
   }
   // ,
   // getBurnupBySprintId: function(req, res) {}

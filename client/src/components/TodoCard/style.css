@@ -1,13 +1,14 @@
 .todo-card-wrapper {
   background: white;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   margin-top: 5px;
   margin-bottom: 10px;
-  border-radius: 10px;
-  padding: 5px;
+  border-radius: 10px 10px 26px 26px;
+  /* padding: 5px; */
+  box-shadow: 4px 4px 4px gray;
 }
 .todo-card-wrapper:hover {
-  box-shadow: 4px 4px 4px gray;
+  box-shadow: 0px 0px 0px gray;
   transition-duration: 220ms;
   cursor: pointer;
 }
@@ -18,8 +19,10 @@
 }
 
 .todo-card-footer-wrapper {
-  border-top: 1px solid gray;
-  background: whitesmoke;
+  /* border-top: 1px solid gray; */
+  background: #56b3ff;
+  color: white;
+  border-radius: 0 0 26px 26px;
 }
 .todo-card-footer-item {
   display: inline;
