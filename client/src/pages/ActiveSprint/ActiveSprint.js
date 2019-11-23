@@ -86,6 +86,7 @@ export default function ActiveSprint({ setAuthenticated }) {
         setUser({});
       }
     });
+    // eslint-disable-next-line
   }, [todo]);
 
   return (

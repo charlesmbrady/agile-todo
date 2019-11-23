@@ -85,6 +85,7 @@ export default function Backlog({ setAuthenticated }) {
         setUser({});
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   const updateTodosList = givenTodo => {

@@ -33,6 +33,7 @@ export default function Dashboard({ setAuthenticated }) {
         setAuthenticated(false);
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   const getBurnup = id => {
