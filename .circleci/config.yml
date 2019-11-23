@@ -51,7 +51,7 @@ jobs:
 
       - run:
           name: Build frontend react app
-          command: cd client && npm run build
+          command: cd client && CI='' npm run build
 
       # - persist_to_workspace:
       #     root: ~/
