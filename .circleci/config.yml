@@ -53,76 +53,14 @@ jobs:
           name: Build frontend react app
           command: cd client && npm run build
 
-      # - run:
-      #     name: Analyze react app bundle
-      #     command: cd client && yarn analyze
-
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - mern-auth
-            - .cache
-  # js_unit_tests:
-  #   <<: *defaults
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/
-  #     - run:
-  #         name: Frontend Unit tests
-  #         command: |
-  #           cd client
-  #           yarn run test
-  # backend_unit_tests:
-  #   <<: *defaults
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/
-  #     - run:
-  #         name: Backend Unit Tests
-  #         command: yarn run backend-unit-tests
-  # ui_tests:
-  #   <<: *defaults
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/
-  #     - run:
-  #         name: Run backend
-  #         command: yarn run backend
-  #         background: true
-  #     - run:
-  #         name: Run frontend
-  #         command: yarn run frontend
-  #         background: true
-  #     - run:
-  #         name: Run UI tests
-  #         command: yarn run ui-tests
-  # api_tests:
-  #   <<: *defaults
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/
-  #     - run:
-  #         name: Run backend
-  #         command: yarn run backend
-  #         background: true
-  #     - run:
-  #         name: Run local API tests
-  #         command: yarn wait-on http://localhost:3001 && yarn run api-tests
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - agile-todo
+      #       - .cache
 
 workflows:
   version: 2
   starter-workflow:
     jobs:
       - build
-      # - js_unit_tests:
-      #     requires:
-      #       - build
-      # - backend_unit_tests:
-      #     requires:
-      #       - build
-      # - api_tests:
-      #     requires:
-      #       - build
-      # - ui_tests:
-      #     requires:
-      #       - build
