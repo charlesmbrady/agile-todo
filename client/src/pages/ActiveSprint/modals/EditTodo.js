@@ -9,8 +9,7 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  FormText
+  Input
 } from "reactstrap";
 
 export default function EditTodo({
@@ -28,7 +27,7 @@ export default function EditTodo({
   const [priority, setPriority] = useState(todo.priority);
   const [points, setPoints] = useState(todo.points);
   const [status, setStatus] = useState(todo.status);
-  const [sprint, setSprint] = useState(sprintId);
+  const [sprint] = useState(sprintId);
 
   const updateTodo = () => {
     const newTodo = {

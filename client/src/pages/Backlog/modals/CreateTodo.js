@@ -13,8 +13,7 @@ import {
   Col,
   FormGroup,
   Label,
-  Input,
-  FormText
+  Input
 } from "reactstrap";
 
 export default function CreateTodo({

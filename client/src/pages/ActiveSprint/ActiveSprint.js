@@ -4,8 +4,7 @@ import AUTH from "../../utils/AUTH";
 import API from "../../utils/API";
 import TodoCard from "../../components/TodoCard/TodoCard";
 import EditTodo from "./modals/EditTodo";
-import { Redirect, Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import { Redirect } from "react-router-dom";
 
 export default function ActiveSprint({ setAuthenticated }) {
   const [user, setUser] = useState({});
@@ -18,14 +17,14 @@ export default function ActiveSprint({ setAuthenticated }) {
   let todosCompletedPoints = 0;
 
   todosList.forEach(todo => {
-    if (todo.status == "completed") {
+    if (todo.status === "completed") {
       todosCompletedPoints += parseInt(todo.points);
     }
     todosTotalPoints += parseInt(todo.points);
   });
 
   //modal
-  const [editTodoModal, setEditTodoModal] = useState(true);
+  const [editTodoModal] = useState(true);
 
   const renderRedirect = () => {
     if (redirect) {
@@ -45,7 +44,6 @@ export default function ActiveSprint({ setAuthenticated }) {
       startDate: sprint.startDate,
       projectedPoints: todosTotalPoints,
       completedPoints: todosCompletedPoints,
-      endDate: Date.now(),
       active: false,
       _id: sprint._id
     };
@@ -123,7 +121,7 @@ export default function ActiveSprint({ setAuthenticated }) {
             </div>
             <div className="swim-lane-body-wrapper">
               {todosList
-                .filter(todo => todo.status == "ready")
+                .filter(todo => todo.status === "ready")
                 .map(todo => (
                   <TodoCard todo={todo} setTodo={() => setTodo(todo)} />
                 ))}
@@ -135,7 +133,7 @@ export default function ActiveSprint({ setAuthenticated }) {
             </div>
             <div className="swim-lane-body-wrapper">
               {todosList
-                .filter(todo => todo.status == "working")
+                .filter(todo => todo.status === "working")
                 .map(todo => (
                   <TodoCard todo={todo} setTodo={() => setTodo(todo)} />
                 ))}
@@ -147,7 +145,7 @@ export default function ActiveSprint({ setAuthenticated }) {
             </div>
             <div className="swim-lane-body-wrapper other">
               {todosList
-                .filter(todo => todo.status == "completed")
+                .filter(todo => todo.status === "completed")
                 .map(todo => (
                   <TodoCard todo={todo} setTodo={() => setTodo(todo)} />
                 ))}

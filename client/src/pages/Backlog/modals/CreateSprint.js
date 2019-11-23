@@ -10,8 +10,7 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  FormText
+  Input
 } from "reactstrap";
 
 export default function CreateSprint({

@@ -6,7 +6,6 @@ import API from "../../utils/API";
 import { Line } from "react-chartjs-2";
 
 export default function Dashboard({ setAuthenticated }) {
-  const [user, setUser] = useState({});
   const [events, setEvents] = useState([]);
   const [sprints, setSprints] = useState([]);
   const [data, setData] = useState({
@@ -27,18 +26,11 @@ export default function Dashboard({ setAuthenticated }) {
   useEffect(() => {
     AUTH.checkToken().then(res => {
       if (res.status === 200) {
-        // setAuthenticated(true);
-        setUser({
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          id: res.data.id
-        });
         API.getAllSprints(res.data.id).then(sprintsResponse => {
           setSprints(sprintsResponse.data);
         });
       } else {
         setAuthenticated(false);
-        setUser({});
       }
     });
   }, []);
@@ -54,11 +46,6 @@ export default function Dashboard({ setAuthenticated }) {
     });
   };
 
-  const ping = () => {
-    API.ping().then(res => {
-      console.log(res);
-    });
-  };
   return (
     <div>
       <div className="chart">

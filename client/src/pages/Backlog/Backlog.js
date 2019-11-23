@@ -16,14 +16,13 @@ export default function Backlog({ setAuthenticated }) {
   const [user, setUser] = useState({});
   const [todo, setTodo] = useState(null);
   const [todosList, setTodosList] = useState([{}]);
-  const [sprint, setSprint] = useState(null);
   const [sprintsList, setSprintsList] = useState([{}]);
   const [activeSprint, setActiveSprint] = useState(null);
 
   //Modals
   const [createSprintModal, setCreateSprintModal] = useState(false);
   const [createTodoModal, setCreateTodoModal] = useState(false);
-  const [editTodoModal, setEditTodoModal] = useState(true);
+  const [editTodoModal] = useState(true);
 
   const toggleCreateSprintModal = () => {
     setCreateSprintModal(!createSprintModal);
@@ -40,7 +39,7 @@ export default function Backlog({ setAuthenticated }) {
 
       let totalPoints = 0;
       todosList.forEach(todo => {
-        if (todo.sprint == activeSprint._id) {
+        if (todo.sprint === activeSprint._id) {
           totalPoints += parseInt(todo.points);
         }
       });
@@ -71,7 +70,10 @@ export default function Backlog({ setAuthenticated }) {
           setTodosList(todosResponse.data);
           API.getAllSprints(res.data.id).then(sprintsResponse => {
             sprintsResponse.data.forEach(sprint => {
-              if (sprint.status === "active" || sprint.status == "inProgress") {
+              if (
+                sprint.status === "active" ||
+                sprint.status === "inProgress"
+              ) {
                 setActiveSprint(sprint);
               }
             });
@@ -125,15 +127,15 @@ export default function Backlog({ setAuthenticated }) {
       <div className="sprint-wrapper">
         <div className="sprint-header-wrapper">
           <h6 className="sprint-header-item">
-            {activeSprint == null ? (
+            {activeSprint === null ? (
               <span>No Active Sprint</span>
             ) : (
               <span>Active Sprint - {activeSprint.name}</span>
             )}
           </h6>
-          {activeSprint != null &&
-            activeSprint.status == "active" &&
-            activeSprint.todos.length != 0 && (
+          {activeSprint !== null &&
+            activeSprint.status === "active" &&
+            activeSprint.todos.length !== 0 && (
               <button
                 onClick={() => startSprint()}
                 className="sprint-header-item"
@@ -142,7 +144,7 @@ export default function Backlog({ setAuthenticated }) {
                 Start Sprint
               </button>
             )}
-          {activeSprint == null && (
+          {activeSprint === null && (
             <button
               id="create-sprint-button"
               className="backlog-page-header-item"
@@ -154,12 +156,12 @@ export default function Backlog({ setAuthenticated }) {
         </div>
         <div className="sprint-body-wrapper todos-list">
           {activeSprint != null &&
-            todosList.filter(todo => todo.sprint == activeSprint._id) && (
+            todosList.filter(todo => todo.sprint === activeSprint._id) && (
               <div className="sprint-table-wrapper">
                 <Table responsive hover>
                   <tbody>
                     {todosList
-                      .filter(todo => todo.sprint == activeSprint._id)
+                      .filter(todo => todo.sprint === activeSprint._id)
                       .map((todo, i) => (
                         <TodoListItem
                           todo={todo}
@@ -193,7 +195,7 @@ export default function Backlog({ setAuthenticated }) {
             <Table responsive hover>
               <tbody>
                 {todosList
-                  .filter(todo => todo.status == "backlog")
+                  .filter(todo => todo.status === "backlog")
                   .map((todo, i) => (
                     <TodoListItem
                       todo={todo}
@@ -221,8 +223,6 @@ export default function Backlog({ setAuthenticated }) {
           userId={user.id}
           todo={todo}
           updateTodosList={updateTodosList}
-          // subject={todo.subject}
-          // description={todo.description}
           sprintsList={sprintsList}
         />
       )}
