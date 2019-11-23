@@ -67,7 +67,7 @@ export default function Dashboard({ setAuthenticated }) {
       </div>
       <div>
         {sprints
-          .filter(sprint => sprint.status != "active")
+          .filter(sprint => sprint.status !== "active")
           .map(sprint => (
             <div onClick={() => getBurnup(sprint._id)}>
               Name: {sprint.name} ID: {sprint._id}
