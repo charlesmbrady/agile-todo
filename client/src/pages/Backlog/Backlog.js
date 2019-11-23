@@ -108,26 +108,32 @@ export default function Backlog({ setAuthenticated }) {
   };
 
   return (
-    <div className="backlog-wrapper">
-      <div className="backlog-header-wrapper">
-        {!activeSprint && (
+    <div className="backlog-page-wrapper">
+      <div className="backlog-page-header-wrapper">
+        {/* {!activeSprint && (
           <button
             id="create-sprint-button"
-            className="backlog-header-item"
+            className="backlog-page-header-item"
             onClick={() => toggleCreateSprintModal()}
           >
             Create Sprint
           </button>
-        )}
+        )} */}
       </div>
 
-      {activeSprint && (
-        <div className="sprint-wrapper">
-          <div className="sprint-header-wrapper">
-            <h6 className="sprint-header-item">
-              Active Sprint - {activeSprint.name}
-            </h6>
-            {activeSprint.status == "active" && (
+      {/* {activeSprint && ( */}
+      <div className="sprint-wrapper">
+        <div className="sprint-header-wrapper">
+          <h6 className="sprint-header-item">
+            {activeSprint == null ? (
+              <span>No Active Sprint</span>
+            ) : (
+              <span>Active Sprint - {activeSprint.name}</span>
+            )}
+          </h6>
+          {activeSprint != null &&
+            activeSprint.status == "active" &&
+            activeSprint.todos.length != 0 && (
               <button
                 onClick={() => startSprint()}
                 className="sprint-header-item"
@@ -136,30 +142,42 @@ export default function Backlog({ setAuthenticated }) {
                 Start Sprint
               </button>
             )}
-          </div>
-          <div className="sprint-body-wrapper">
-            <div className="sprint-table-wrapper">
-              <Table responsive hover>
-                <tbody>
-                  {todosList
-                    .filter(todo => todo.sprint == activeSprint._id)
-                    .map((todo, i) => (
-                      <TodoListItem
-                        todo={todo}
-                        key={i}
-                        setTodo={() => setTodo(todo)}
-                      />
-                    ))}
-                </tbody>
-              </Table>
-            </div>
-          </div>
+          {activeSprint == null && (
+            <button
+              id="create-sprint-button"
+              className="backlog-page-header-item"
+              onClick={() => toggleCreateSprintModal()}
+            >
+              Create Sprint
+            </button>
+          )}
         </div>
-      )}
+        <div className="sprint-body-wrapper todos-list">
+          {activeSprint != null &&
+            todosList.filter(todo => todo.sprint == activeSprint._id) && (
+              <div className="sprint-table-wrapper">
+                <Table responsive hover>
+                  <tbody>
+                    {todosList
+                      .filter(todo => todo.sprint == activeSprint._id)
+                      .map((todo, i) => (
+                        <TodoListItem
+                          todo={todo}
+                          key={i}
+                          setTodo={() => setTodo(todo)}
+                        />
+                      ))}
+                  </tbody>
+                </Table>
+              </div>
+            )}
+        </div>
+      </div>
+      {/* )} */}
 
-      <div className="sprint-wrapper">
-        <div className="sprint-header-wrapper">
-          <h6 className="sprint-header-item">
+      <div className="backlog-wrapper">
+        <div className="backlog-header-wrapper">
+          <h6 className="backlog-header-item">
             Backlog -{" "}
             {todosList.filter(todo => todo.status === "backlog").length} Todos
           </h6>
@@ -170,8 +188,8 @@ export default function Backlog({ setAuthenticated }) {
             Create Todo
           </button>
         </div>
-        <div className="sprint-body-wrapper">
-          <div className="sprint-table-wrapper">
+        <div className="backlog-body-wrapper todos-list">
+          <div className="backlog-table-wrapper">
             <Table responsive hover>
               <tbody>
                 {todosList

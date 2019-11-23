@@ -2,12 +2,12 @@
   cursor: pointer;
 }
 
-.backlog-wrapper {
+.backlog-page-wrapper {
   width: 90%;
   margin: 0 auto;
   min-width: 300px;
 }
-.backlog-header-item {
+.backlog-page-header-item {
   float: right;
 }
 .sprint-wrapper {
@@ -17,6 +17,15 @@
   position: relative;
 }
 .sprint-header-item {
+  display: inline-block;
+}
+.backlog-wrapper {
+  width: 95%;
+  margin: 0 auto;
+  min-height: 150px;
+  position: relative;
+}
+.backlog-header-item {
   display: inline-block;
 }
 #sprint-start-button,
@@ -38,4 +47,14 @@
   box-shadow: 0px 2px 2px 1px slategray;
   border: none;
   cursor: pointer;
+}
+
+.todos-list {
+  background: #0d5c6383;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 3px;
+  padding-left: 3px;
+  min-height: 100px;
+  border-radius: 6px;
 }
