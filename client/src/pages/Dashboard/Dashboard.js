@@ -6,7 +6,6 @@ import API from "../../utils/API";
 import { Line } from "react-chartjs-2";
 
 export default function Dashboard({ setAuthenticated }) {
-  const [user, setUser] = useState({});
   const [events, setEvents] = useState([]);
   const [sprints, setSprints] = useState([]);
   const [data, setData] = useState({
@@ -27,38 +26,33 @@ export default function Dashboard({ setAuthenticated }) {
   useEffect(() => {
     AUTH.checkToken().then(res => {
       if (res.status === 200) {
-        // setAuthenticated(true);
-        setUser({
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          id: res.data.id
-        });
         API.getAllSprints(res.data.id).then(sprintsResponse => {
           setSprints(sprintsResponse.data);
         });
       } else {
         setAuthenticated(false);
-        setUser({});
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   const getBurnup = id => {
-    API.getEventsBySprintId(id).then(response => {
+    API.getBurnupData(id).then(response => {
       console.log(response.data);
-      response.data.forEach(event => {
-        console.log(event.createdDate);
-        console.log(event.totalPoints);
-        console.log(event.completedPoints);
+      // response.data;
+      let dataValues = [];
+      setData({
+        labels: response.data.labels,
+        datasets: [
+          {
+            label: "Burnup",
+            data: response.data.data
+          }
+        ]
       });
     });
   };
 
-  const ping = () => {
-    API.ping().then(res => {
-      console.log(res);
-    });
-  };
   return (
     <div>
       <div className="chart">
@@ -80,7 +74,7 @@ export default function Dashboard({ setAuthenticated }) {
       </div>
       <div>
         {sprints
-          .filter(sprint => sprint.status != "active")
+          .filter(sprint => sprint.status !== "active")
           .map(sprint => (
             <div onClick={() => getBurnup(sprint._id)}>
               Name: {sprint.name} ID: {sprint._id}

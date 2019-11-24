@@ -55,5 +55,10 @@ export default {
     return axios.get(`/api/events/sprint/${sprintId}`).catch(err => {
       throw err;
     });
+  },
+  getBurnupData: function(sprintId) {
+    return axios.get(`/api/events/burnup/${sprintId}`).catch(err => {
+      throw err;
+    });
   }
 };
