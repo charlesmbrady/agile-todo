@@ -37,12 +37,18 @@ export default function Dashboard({ setAuthenticated }) {
   }, []);
 
   const getBurnup = id => {
-    API.getEventsBySprintId(id).then(response => {
+    API.getBurnupData(id).then(response => {
       console.log(response.data);
-      response.data.forEach(event => {
-        console.log(event.createdDate);
-        console.log(event.totalPoints);
-        console.log(event.completedPoints);
+      // response.data;
+      let dataValues = [];
+      setData({
+        labels: response.data.labels,
+        datasets: [
+          {
+            label: "Burnup",
+            data: response.data.data
+          }
+        ]
       });
     });
   };
