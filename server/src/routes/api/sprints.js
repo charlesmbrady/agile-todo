@@ -13,8 +13,4 @@ router.route("/user/:id").get(sprintsController.getAllSprintsByUserId);
 
 router.route("/:id").get(sprintsController.getSprintById);
 
-router.route("/active/:id").get(sprintsController.getActiveSprint);
-
-router.route("/activate").post(sprintsController.activateSprint);
-
 module.exports = router;

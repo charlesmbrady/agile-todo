@@ -19,6 +19,15 @@ export default function Backlog({ setAuthenticated }) {
   const [sprintsList, setSprintsList] = useState([{}]);
   const [activeSprint, setActiveSprint] = useState(null);
 
+  //SEPERATE sprints into it's own component? the pass todos, then filter those todos within sprint component
+  // need to get all sprints in the sprints list
+  // filter sprintsList and display the sprint that has status of "inProgress" first
+  // then filter all the todos by this sprintId and display them
+
+  //filter sprintsList and display the sprints with status of "notStarted"
+
+  //Display all todos that are not complete and have no sprint ref
+
   //Modals
   const [createSprintModal, setCreateSprintModal] = useState(false);
   const [createTodoModal, setCreateTodoModal] = useState(false);
