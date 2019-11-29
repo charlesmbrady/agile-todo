@@ -10,7 +10,6 @@ const todoSchema = new Schema({
   lastUpdateDate: { type: Date, default: Date.now }, //this will update everytime saved unless i give it a value
   startDate: { type: Date, default: null },
   completedDate: { type: Date, default: null },
-  // notes: { type: String, default: null },
   sprint: { type: Schema.Types.ObjectId, ref: "Sprint" },
   points: { type: Number, default: null },
   priority: { type: String, default: "medium" },

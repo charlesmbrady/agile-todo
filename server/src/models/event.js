@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const eventSchema = new Schema({
-  // description: { type: String, default: null },
   type: { type: String, default: null },
   completedPoints: { type: Number, default: null },
   totalPoints: { type: Number, default: null },
