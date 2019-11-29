@@ -10,6 +10,7 @@
 .backlog-page-header-item {
   float: right;
 }
+
 .sprint-wrapper {
   width: 95%;
   margin: 0 auto;
@@ -41,9 +42,9 @@
   background: green;
 }
 
-#sprint-start-button:hover,
-#create-sprint-button:hover,
-#create-todo-button:hover {
+.backlog-button {
+}
+.backlog-button:hover {
   box-shadow: 0px 2px 2px 1px slategray;
   border: none;
   cursor: pointer;

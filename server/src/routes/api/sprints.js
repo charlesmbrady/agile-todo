@@ -6,7 +6,6 @@ const withAuth = require("../../middleware.js");
 router
   .route("/")
   .post(sprintsController.createSprint)
-  // .get(sprintsController.getAllSprints)
   .put(sprintsController.updateSprintById);
 
 router.route("/user/:id").get(sprintsController.getAllSprintsByUserId);

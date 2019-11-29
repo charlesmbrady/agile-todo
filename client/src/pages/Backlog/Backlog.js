@@ -15,9 +15,11 @@ import TodoListItem from "../../components/TodoListItem/TodoListItem";
 export default function Backlog({ setAuthenticated }) {
   const [user, setUser] = useState({});
   const [todo, setTodo] = useState(null);
-  const [todosList, setTodosList] = useState([{}]);
-  const [sprintsList, setSprintsList] = useState([{}]);
-  const [activeSprint, setActiveSprint] = useState(null);
+  const [sprint, setSprint] = useState(null);
+  const [todosList, setTodosList] = useState([]);
+  const [sprintsList, setSprintsList] = useState([]);
+
+  // const activeSprint = sprintsList.find(sprint.status === "inProgress");
 
   //SEPERATE sprints into it's own component? the pass todos, then filter those todos within sprint component
   // need to get all sprints in the sprints list
@@ -28,7 +30,7 @@ export default function Backlog({ setAuthenticated }) {
 
   //Display all todos that are not complete and have no sprint ref
 
-  //Modals
+  //_____________________________ Modals ____________________________________//
   const [createSprintModal, setCreateSprintModal] = useState(false);
   const [createTodoModal, setCreateTodoModal] = useState(false);
   const [editTodoModal] = useState(true);
@@ -39,29 +41,16 @@ export default function Backlog({ setAuthenticated }) {
   const toggleCreateTodoModal = () => {
     setCreateTodoModal(!createTodoModal);
   };
+  ////////////////////////////////////////////////////////////////////////////////
 
-  const startSprint = () => {
-    let tempActiveSprint = { ...activeSprint };
-    tempActiveSprint.status = "inProgress";
-    API.startSprint({ _id: tempActiveSprint._id }).then(sprintResponse => {
-      setActiveSprint(tempActiveSprint);
-
-      let totalPoints = 0;
-      todosList.forEach(todo => {
-        if (todo.sprint === activeSprint._id) {
-          totalPoints += parseInt(todo.points);
-        }
-      });
-
-      const event = {
-        type: "sprint started",
-        completedPoints: 0,
-        totalPoints: totalPoints,
-        sprint: activeSprint._id
-      };
-      API.createEvent(event).then(eventResponse => {
-        console.log(eventResponse.data);
-      });
+  const getSprints = async userId => {
+    API.getAllSprints(userId).then(res => {
+      setSprintsList(res.data);
+    });
+  };
+  const getTodos = async userId => {
+    API.getAllTodos(userId).then(res => {
+      setTodosList(res.data);
     });
   };
 
@@ -74,68 +63,45 @@ export default function Backlog({ setAuthenticated }) {
           lastName: res.data.lastName,
           id: res.data.id
         });
-        // with the userId set, get all the todos for the user
-        API.getAllTodos(res.data.id).then(todosResponse => {
-          setTodosList(todosResponse.data);
-          API.getAllSprints(res.data.id).then(sprintsResponse => {
-            sprintsResponse.data.forEach(sprint => {
-              if (
-                sprint.status === "active" ||
-                sprint.status === "inProgress"
-              ) {
-                setActiveSprint(sprint);
-              }
-            });
-            setSprintsList(sprintsResponse.data);
-          });
-        });
+        // with the userId set, get all the todos and sprints for the user
+        getTodos(res.data.id);
+        getSprints(res.data.id);
       } else {
+        // if the res.status is not 200, then log the user out.
         setAuthenticated(false);
         setUser({});
       }
     });
     // eslint-disable-next-line
-  }, []);
-
-  const updateTodosList = givenTodo => {
-    const tempTodos = [...todosList];
-    let newTodo = true;
-
-    tempTodos.forEach((loopTodo, i) => {
-      if (loopTodo._id === givenTodo._id) {
-        tempTodos[i] = givenTodo;
-        newTodo = false;
-      }
-    });
-    if (newTodo) {
-      tempTodos.unshift(givenTodo);
-    }
-    setTodosList(tempTodos);
-  };
-
-  const addToSprintsList = sprint => {
-    const tempSprints = [...sprintsList];
-    tempSprints.unshift(sprint);
-    setSprintsList(tempSprints);
-  };
+  }, [todo, sprint]);
 
   return (
     <div className="backlog-page-wrapper">
       <div className="backlog-page-header-wrapper">
-        {/* {!activeSprint && (
-          <button
-            id="create-sprint-button"
-            className="backlog-page-header-item"
-            onClick={() => toggleCreateSprintModal()}
-          >
-            Create Sprint
-          </button>
-        )} */}
+        <button
+          id="create-sprint-button"
+          className="backlog-page-header-item backlog-button btn"
+          onClick={() => toggleCreateSprintModal()}
+        >
+          Create Sprint
+        </button>
+        <button
+          id="create-todo-button"
+          className="backlog-button btn"
+          onClick={() => toggleCreateTodoModal()}
+        >
+          Create Todo
+        </button>
       </div>
 
-      {/* {activeSprint && ( */}
-      <div className="sprint-wrapper">
-        <div className="sprint-header-wrapper">
+      {/* <div className="sprint-wrapper"> */}
+      <h2>active sprint</h2>
+      {sprintsList
+        .filter(sprint => sprint.status === "inProgress")
+        .map(sprint => {
+          return <p>{sprint.name}</p>;
+        })}
+      {/* <div className="sprint-header-wrapper">
           <h6 className="sprint-header-item">
             {activeSprint === null ? (
               <span>No Active Sprint</span>
@@ -163,8 +129,8 @@ export default function Backlog({ setAuthenticated }) {
               Create Sprint
             </button>
           )}
-        </div>
-        <div className="sprint-body-wrapper todos-list">
+        </div> */}
+      {/* <div className="sprint-body-wrapper todos-list">
           {activeSprint != null &&
             todosList.filter(todo => todo.sprint === activeSprint._id) && (
               <div className="sprint-table-wrapper">
@@ -183,24 +149,18 @@ export default function Backlog({ setAuthenticated }) {
                 </Table>
               </div>
             )}
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
       {/* )} */}
 
-      <div className="backlog-wrapper">
-        <div className="backlog-header-wrapper">
-          <h6 className="backlog-header-item">
+      {/* <div className="backlog-wrapper"> */}
+      {/* <div className="backlog-header-wrapper"> */}
+      {/* <h6 className="backlog-header-item">
             Backlog -{" "}
             {todosList.filter(todo => todo.status === "backlog").length} Todos
-          </h6>
-          <button
-            id="create-todo-button"
-            onClick={() => toggleCreateTodoModal()}
-          >
-            Create Todo
-          </button>
-        </div>
-        <div className="backlog-body-wrapper todos-list">
+          </h6> */}
+      {/* </div> */}
+      {/* <div className="backlog-body-wrapper todos-list">
           <div className="backlog-table-wrapper">
             <Table responsive hover>
               <tbody>
@@ -216,14 +176,13 @@ export default function Backlog({ setAuthenticated }) {
               </tbody>
             </Table>
           </div>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
       {createTodoModal && (
         <CreateTodo
           isOpen={createTodoModal}
           toggle={toggleCreateTodoModal}
           userId={user.id}
-          updateTodosList={updateTodosList}
         />
       )}
       {todo && (
@@ -232,8 +191,6 @@ export default function Backlog({ setAuthenticated }) {
           toggle={setTodo}
           userId={user.id}
           todo={todo}
-          updateTodosList={updateTodosList}
-          sprintsList={sprintsList}
         />
       )}
       {createSprintModal && (
@@ -241,8 +198,7 @@ export default function Backlog({ setAuthenticated }) {
           isOpen={createSprintModal}
           toggle={toggleCreateSprintModal}
           userId={user.id}
-          setActiveSprint={setActiveSprint}
-          addToSprintsList={addToSprintsList}
+          sprint={sprint}
         />
       )}
     </div>
