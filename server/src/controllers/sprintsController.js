@@ -12,7 +12,7 @@ module.exports = {
   },
   getAllSprintsByUserId: function(req, res) {
     db.Sprint.find({ user: req.params.id })
-      .sort({ lastUpdateDate: -1 })
+      .sort({ createdDate: 1 })
       .populate("todos")
       .then(dbSprints => {
         res.json(dbSprints);
