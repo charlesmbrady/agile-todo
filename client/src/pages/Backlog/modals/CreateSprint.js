@@ -13,13 +13,7 @@ import {
   Input
 } from "reactstrap";
 
-export default function CreateSprint({
-  isOpen,
-  toggle,
-  userId,
-  addToSprintsList,
-  setActiveSprint
-}) {
+export default function CreateSprint({ isOpen, toggle, userId }) {
   const [name, setName] = useState(null);
   const [pointsProjection, setPointsProjection] = useState(null);
 
@@ -31,30 +25,10 @@ export default function CreateSprint({
     };
     API.createSprint(sprint).then(sprintResponse => {
       if (sprintResponse.status === 200) {
-        // updateTodosList(todoResponse.data); this works
-        // console.log("sprint response data: " + sprintResponse.data.active);
-        addToSprintsList(sprintResponse.data);
-        setActiveSprint(sprintResponse.data);
         toggle();
       }
     });
   };
-  // const createSprint = () => {
-  // const todo = {
-  //   subject,
-  //   description,
-  //   priority,
-  //   points,
-  //   user: userId
-  // };
-  // API.createTodo(todo).then(todoResponse => {
-  //   if (todoResponse.status === 200) {
-  //     updateTodosList(todoResponse.data);
-  //     toggle();
-  //   }
-  // });
-  //   console.log("createSrint");
-  // };
 
   return (
     <Modal className="my-modal" isOpen={isOpen} toggle={toggle}>

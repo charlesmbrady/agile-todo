@@ -35,7 +35,7 @@ export default function ActiveSprint({ setAuthenticated }) {
   const endSprint = () => {
     const tempSprint = {
       // todos: [],
-      status: "done",
+      status: "completed",
       endDate: Date.now(),
       user: sprint.user,
       name: sprint.name,

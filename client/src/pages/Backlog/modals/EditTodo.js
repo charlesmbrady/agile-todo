@@ -19,14 +19,13 @@ export default function EditTodo({
   toggle,
   userId,
   todo,
-  sprintsList,
-  updateTodosList
+  sprintsList
 }) {
   const [subject, setSubject] = useState(todo.subject);
   const [description, setDescription] = useState(todo.description);
   const [priority, setPriority] = useState(todo.priority);
   const [points, setPoints] = useState(todo.points);
-  const [sprint, setSprint] = useState(sprintsList[0]._id);
+  const [sprint, setSprint] = useState({});
 
   const updateTodo = () => {
     const newTodo = {
@@ -43,11 +42,6 @@ export default function EditTodo({
 
     API.updateTodo(newTodo).then(todoResponse => {
       if (todoResponse.status === 200) {
-        updateTodosList(todoResponse.data);
-        //make api call to insert the todo id into the todos array on the sprint if the sprint is there
-        // ***********************************
-        // *********************************
-        // what if i do this on the backend in the update todo controller
         toggle(null);
       }
     });

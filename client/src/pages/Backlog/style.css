@@ -7,6 +7,10 @@
   margin: 0 auto;
   min-width: 300px;
 }
+.backlog-page-header-wrapper {
+  margin-bottom: 15px;
+  height: 50px;
+}
 .backlog-page-header-item {
   float: right;
 }
@@ -14,21 +18,11 @@
 .sprint-wrapper {
   width: 95%;
   margin: 0 auto;
-  min-height: 150px;
-  position: relative;
 }
 .sprint-header-item {
   display: inline-block;
 }
-.backlog-wrapper {
-  width: 95%;
-  margin: 0 auto;
-  min-height: 150px;
-  position: relative;
-}
-.backlog-header-item {
-  display: inline-block;
-}
+
 #sprint-start-button,
 #create-sprint-button,
 #create-todo-button {
@@ -42,8 +36,6 @@
   background: green;
 }
 
-.backlog-button {
-}
 .backlog-button:hover {
   box-shadow: 0px 2px 2px 1px slategray;
   border: none;

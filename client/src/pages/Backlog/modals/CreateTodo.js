@@ -37,7 +37,6 @@ export default function CreateTodo({
     };
     API.createTodo(todo).then(todoResponse => {
       if (todoResponse.status === 200) {
-        updateTodosList(todoResponse.data);
         toggle();
       }
     });
