@@ -96,14 +96,21 @@ export default function Backlog({ setAuthenticated }) {
             return (
               <div className="sprint-wrapper">
                 <div className="sprint-header-wrapper">
-                  <h6 className="sprint-header-item">{sprint.name}</h6>
+                  <h6 className="sprint-header-item sprint-name">
+                    {sprint.name}
+                  </h6>
                   {sprint.status === "notStarted" && (
-                    <button onClick={() => startSprint(sprint)}>
+                    <button
+                      id="sprint-start-button"
+                      onClick={() => startSprint(sprint)}
+                    >
                       Start Sprint
                     </button>
                   )}
                 </div>
                 <div className="sprint-body">
+                  {todosList.filter(todo => todo.sprint === sprint._id)
+                    .length === 0 && <div>No todos for this sprint yet...</div>}
                   <Table responsive hover>
                     <tbody>
                       {todosList

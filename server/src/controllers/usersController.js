@@ -68,11 +68,10 @@ module.exports = {
           _id: userMatch._id
         };
         const signOptions = {
-          expiresIn: "1h"
+          expiresIn: "2h"
         };
         const token = jwt.sign(payload, "secret", signOptions);
         res.cookie("token", token, { httpOnly: true }).sendStatus(200);
-        // return res.status(200).send("logged in");
       }
     });
   },

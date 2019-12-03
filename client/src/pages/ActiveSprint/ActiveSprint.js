@@ -73,10 +73,13 @@ export default function ActiveSprint({ setAuthenticated }) {
           id: res.data.id
         });
         // with the userId set, get all the todos for the user
-        API.getActiveSprint(res.data.id).then(activeSprintResponse => {
-          if (activeSprintResponse.data[0]) {
-            setSprint(activeSprintResponse.data[0]);
-            setTodosList(activeSprintResponse.data[0].todos);
+        API.getAllSprints(res.data.id).then(sprintsResponse => {
+          const activeSprint = sprintsResponse.data.filter(
+            sprint => sprint.status === "inProgress"
+          );
+          if (activeSprint[0]) {
+            setSprint(activeSprint[0]);
+            setTodosList(activeSprint[0].todos);
           }
         });
         //need to get all todos in the active sprint and put them in one Todos list, and render them in swim lanes based on status
@@ -163,8 +166,6 @@ export default function ActiveSprint({ setAuthenticated }) {
             sprintId={sprint._id}
             totalPoints={todosTotalPoints}
             completedPoints={todosCompletedPoints}
-            // updateTodosList={updateTodosList}
-            // sprintsList={sprintsList}
           />
         )}
       </div>

@@ -36,11 +36,6 @@ export default {
       throw err;
     });
   },
-  getActiveSprint: function(userId) {
-    return axios.get(`/api/sprints/active/${userId}`).catch(err => {
-      throw err;
-    });
-  },
   createEvent: function(event) {
     return axios.post(`/api/events`, event).catch(err => {
       throw err;

@@ -21,7 +21,7 @@ export default function Login({ authenticated, setAuthenticated }) {
 
   const renderRedirect = () => {
     if (redirect) {
-      return <Redirect to="/dashboard" />;
+      return <Redirect to="/backlog" />;
     }
   };
 

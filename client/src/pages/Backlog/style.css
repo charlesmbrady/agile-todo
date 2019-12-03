@@ -51,3 +51,20 @@
   min-height: 100px;
   border-radius: 6px;
 }
+
+.sprint-wrapper {
+  /* border-top: 1px solid lightblue; */
+  margin-bottom: 15px;
+  padding: 10px;
+  border-left: 2px solid lightblue;
+  box-shadow: 1px 1px 1px gray;
+}
+
+.sprints-section {
+  border-bottom: 5px solid black;
+}
+
+.sprint-name {
+  font-weight: bolder;
+  color: #000c98;
+}
