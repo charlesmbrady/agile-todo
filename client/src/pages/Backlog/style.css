@@ -13,6 +13,7 @@
 }
 .backlog-page-header-item {
   float: right;
+  margin-left: 10px;
 }
 
 .sprint-wrapper {
@@ -23,23 +24,36 @@
   display: inline-block;
 }
 
-#sprint-start-button,
+#start-sprint-button,
 #create-sprint-button,
 #create-todo-button {
   float: right;
-  background: #56b3ff;
+  /* background: #56b3ff; */
+  background: blanchedalmond;
   border-radius: 7px;
-  color: white;
+  color: black;
   font-weight: bold;
+  font-size: 13px;
 }
 #create-sprint-button {
-  background: green;
+  background: blanchedalmond;
+}
+#start-sprint-button {
+  background: white;
+  color: #53affa;
+}
+#start-sprint-button:hover {
+  background: #53affa;
+  color: white;
 }
 
 .backlog-button:hover {
-  box-shadow: 0px 2px 2px 1px slategray;
-  border: none;
   cursor: pointer;
+}
+#create-todo-button:hover,
+#create-sprint-button:hover {
+  background: rgb(168, 155, 135);
+  color: white;
 }
 
 .todos-list {
@@ -54,7 +68,8 @@
 
 .sprint-wrapper {
   /* border-top: 1px solid lightblue; */
-  margin-bottom: 15px;
+  margin-bottom: 40px;
+  background: #3333331f;
   padding: 10px;
   border-left: 2px solid lightblue;
   box-shadow: 1px 1px 1px gray;
@@ -62,9 +77,15 @@
 
 .sprints-section {
   border-bottom: 5px solid black;
+  padding-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .sprint-name {
   font-weight: bolder;
   color: #000c98;
+}
+
+.no-list {
+  text-align: center;
 }

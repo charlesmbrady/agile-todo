@@ -21,7 +21,10 @@ export default function Backlog({ setAuthenticated }) {
   const backlogTodos = todosList.filter(
     todo => todo.sprint === undefined || null
   );
-  console.log("backlog todos " + JSON.stringify(backlogTodos));
+  let hasActiveSprint;
+  sprintsList.filter(sprint => sprint.status === "inProgress").length === 0
+    ? (hasActiveSprint = false)
+    : (hasActiveSprint = true);
 
   const toggleCreateSprintModal = () => {
     setCreateSprintModal(!createSprintModal);
@@ -89,19 +92,20 @@ export default function Backlog({ setAuthenticated }) {
       </div>
       <div className="sprints-section">
         <h3>Sprints</h3>
-        {sprintsList.length === 0 && <div>No sprints...</div>}
+        {sprintsList.filter(sprint => sprint.status !== "completed").length ===
+          0 && <div className="no-list">No sprints...</div>}
         {sprintsList
           .filter(sprint => sprint.status !== "completed")
-          .map(sprint => {
+          .map((sprint, i) => {
             return (
               <div className="sprint-wrapper">
                 <div className="sprint-header-wrapper">
                   <h6 className="sprint-header-item sprint-name">
                     {sprint.name}
                   </h6>
-                  {sprint.status === "notStarted" && (
+                  {hasActiveSprint === false && i === 0 && (
                     <button
-                      id="sprint-start-button"
+                      id="start-sprint-button"
                       onClick={() => startSprint(sprint)}
                     >
                       Start Sprint
@@ -110,7 +114,11 @@ export default function Backlog({ setAuthenticated }) {
                 </div>
                 <div className="sprint-body">
                   {todosList.filter(todo => todo.sprint === sprint._id)
-                    .length === 0 && <div>No todos for this sprint yet...</div>}
+                    .length === 0 && (
+                    <div className="no-list">
+                      No todos for this sprint yet...
+                    </div>
+                  )}
                   <Table responsive hover>
                     <tbody>
                       {todosList
@@ -135,7 +143,9 @@ export default function Backlog({ setAuthenticated }) {
           <h3>Backlog</h3>
         </div>
         <div className="backlog-todos-body-wrapper">
-          {backlogTodos.length === 0 && <div>No todos in backlog...</div>}
+          {backlogTodos.length === 0 && (
+            <div className="no-list">No todos in backlog...</div>
+          )}
           <Table responsive hover>
             <tbody>
               {todosList

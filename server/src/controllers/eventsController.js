@@ -54,7 +54,6 @@ const getEventDataForBurnup = async sprintId => {
   eventsResponse.forEach((event, i) => {
     const newDate = moment(event.createdDate).format("MMM DD");
     event.createdDate = newDate;
-    console.log("new date " + newDate);
   });
 
   let currentPointsValue = 0;

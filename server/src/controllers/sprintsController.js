@@ -25,15 +25,38 @@ module.exports = {
         res.json(dbSprint);
       });
   },
-  updateSprintById: function(req, res) {
+  updateSprintById: async function(req, res) {
     const id = req.body._id;
     const update = req.body;
     const options = {
       new: true
     };
+    const hasActiveSprint = await hasSprintInProgress(
+      req.body.user,
+      req.body._id
+    );
 
-    db.Sprint.findByIdAndUpdate(id, update, options).then(updatedSprint => {
-      res.json(updatedSprint);
-    });
+    //look at all sprint for user. if find a "inProgress" sprint that isn't the same ID, then don't update
+    if (hasActiveSprint === true) {
+      res.json({ message: "already an active sprint" });
+    } else {
+      db.Sprint.findByIdAndUpdate(id, update, options).then(updatedSprint => {
+        res.json(updatedSprint);
+      });
+    }
+  }
+};
+
+const hasSprintInProgress = async (userId, sprintId) => {
+  const usersSprints = await db.Sprint.find({
+    user: userId,
+    status: "inProgress",
+    _id: { $ne: sprintId }
+  });
+
+  if (usersSprints.length === 0) {
+    return false;
+  } else {
+    return true;
   }
 };
