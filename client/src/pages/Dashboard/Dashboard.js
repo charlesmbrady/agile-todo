@@ -15,11 +15,6 @@ export default function Dashboard({ setAuthenticated }) {
         label: "Burn",
         data: [0, 2, 2, 3, 3, 5]
       }
-      // ,
-      // {
-      //   label: "Guideline",
-      //   data: [0, 1, 2, 3, 4, 5]
-      // }
     ]
   });
 
