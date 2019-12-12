@@ -11,6 +11,7 @@ export default function Home() {
   };
   return (
     <div>
+      <h2>Create and manage your todos list using "agile" methodologies</h2>
       <MySketch />
       <p> put starter info here </p>
       <button onClick={() => ping()}>Ping</button>
