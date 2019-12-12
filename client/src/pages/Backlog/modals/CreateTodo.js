@@ -82,8 +82,9 @@ export default function CreateTodo({
                   value={priority}
                   onChange={e => setPriority(e.target.value)}
                 >
-                  <option>Medium</option>
+                  <option>Select...</option>
                   <option>High</option>
+                  <option>Medium</option>
                   <option>Low</option>
                 </Input>
               </FormGroup>

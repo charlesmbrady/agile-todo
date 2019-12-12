@@ -38,8 +38,6 @@ export default function Dashboard({ setAuthenticated }) {
 
   const getBurnup = id => {
     API.getBurnupData(id).then(response => {
-      console.log(response.data);
-      // response.data;
       let dataValues = [];
       setData({
         labels: response.data.labels,
@@ -57,23 +55,15 @@ export default function Dashboard({ setAuthenticated }) {
     <div>
       <div className="chart">
         <Line
-          // datasets={[10, 20, 30, 40, 50, 60]}
-          // labels={["January", "February", "March", "April", "May", "June"]}
           data={data}
           options={{
             responsive: true
-            // maintainAspectRatio: false,
-            // scales: {
-            //   yAxes: [{ ticks: { beginAtZero: true } }],
-            //   xAxes: [{ ticks: { beginAtZero: true } }]
-            // }
           }}
-          // width="100px"
-          // height="100px"
         />
       </div>
       <div>
         {sprints
+          .reverse()
           .filter(sprint => sprint.status !== "notStarted")
           .map(sprint => (
             <div onClick={() => getBurnup(sprint._id)}>

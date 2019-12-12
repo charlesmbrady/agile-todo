@@ -1,15 +1,11 @@
-.todo-list-item:hover {
-  cursor: pointer;
-}
-
 .backlog-page-wrapper {
   width: 90%;
   margin: 0 auto;
   min-width: 300px;
 }
 .backlog-page-header-wrapper {
-  margin-bottom: 15px;
-  height: 50px;
+  margin-bottom: 0px;
+  /* height: 50px; */
 }
 .backlog-page-header-item {
   float: right;
@@ -22,13 +18,13 @@
 }
 .sprint-header-item {
   display: inline-block;
+  padding: 10px;
 }
 
 #start-sprint-button,
 #create-sprint-button,
 #create-todo-button {
   float: right;
-  /* background: #56b3ff; */
   background: blanchedalmond;
   border-radius: 7px;
   color: black;
@@ -67,12 +63,11 @@
 }
 
 .sprint-wrapper {
-  /* border-top: 1px solid lightblue; */
   margin-bottom: 40px;
   background: #3333331f;
   padding: 10px;
-  border-left: 2px solid lightblue;
-  box-shadow: 1px 1px 1px gray;
+  border-left: 5px solid lightblue;
+  border-radius: 4px;
 }
 
 .sprints-section {
@@ -81,6 +76,12 @@
   margin-bottom: 15px;
 }
 
+.sprint-points {
+  margin-left: 50%;
+  color: rgb(63, 63, 63);
+  font-size: 80%;
+  font-style: italic;
+}
 .sprint-name {
   font-weight: bolder;
   color: #000c98;
@@ -88,4 +89,8 @@
 
 .no-list {
   text-align: center;
+}
+.sprint-date {
+  font-style: italic;
+  font-size: 85%;
 }

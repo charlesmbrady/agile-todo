@@ -82,6 +82,7 @@ export default function EditTodo({
               value={priority}
               onChange={e => setPriority(e.target.value)}
             >
+              <option>Select...</option>
               <option>High</option>
               <option>Medium</option>
               <option>Low</option>
@@ -108,14 +109,16 @@ export default function EditTodo({
               onChange={e => setSprint(e.target.value)}
             >
               <option value={null}>Add to sprint...</option>
-              {sprintsList.map(sprint => (
-                <option
-                  value={sprint._id}
-                  onClick={() => setSprint(sprint._id)}
-                >
-                  {sprint.name}
-                </option>
-              ))}
+              {sprintsList
+                .filter(sprint => sprint.status !== "completed")
+                .map(sprint => (
+                  <option
+                    value={sprint._id}
+                    onClick={() => setSprint(sprint._id)}
+                  >
+                    {sprint.name}
+                  </option>
+                ))}
             </Input>
           </FormGroup>
         </Form>

@@ -8,7 +8,7 @@ const sprintSchema = new Schema({
   lastUpdateDate: { type: Date, default: Date.now },
   startDate: { type: Date }, // update this when the sprint is started
   completedPoints: { type: Number, default: 0 }, // only mess with this when ending sprint
-  endDate: { type: Date, default: null },
+  endDate: { type: Date },
   status: { type: String, default: "notStarted" }, // notStarted, inProgress, completed
   todos: [{ type: Schema.Types.ObjectId, ref: "Todo", default: null }]
 });

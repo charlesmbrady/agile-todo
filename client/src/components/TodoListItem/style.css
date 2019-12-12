@@ -1,4 +1,12 @@
 .todo-list-item {
   background: white;
   border-radius: 8px;
+  cursor: pointer;
+  border-left: 4px solid rgba(112, 128, 144, 0.849);
+}
+
+.todo-list-item:hover {
+  border-left: 4px solid rgb(17, 17, 17);
+  transition-duration: 600ms;
+  background: rgb(228, 228, 228);
 }

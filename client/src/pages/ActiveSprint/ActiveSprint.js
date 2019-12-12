@@ -4,6 +4,7 @@ import AUTH from "../../utils/AUTH";
 import API from "../../utils/API";
 import TodoCard from "../../components/TodoCard/TodoCard";
 import EditTodo from "./modals/EditTodo";
+import Moment from "react-moment";
 import { Redirect } from "react-router-dom";
 
 export default function ActiveSprint({ setAuthenticated }) {
@@ -48,7 +49,6 @@ export default function ActiveSprint({ setAuthenticated }) {
       _id: sprint._id
     };
     API.updateSprint(tempSprint).then(sprintUpdateResponse => {
-      console.log("sprint update response " + sprintUpdateResponse);
       setRedirect(true);
 
       const event = {
@@ -80,6 +80,8 @@ export default function ActiveSprint({ setAuthenticated }) {
           if (activeSprint[0]) {
             setSprint(activeSprint[0]);
             setTodosList(activeSprint[0].todos);
+          } else {
+            setRedirect(true);
           }
         });
         //need to get all todos in the active sprint and put them in one Todos list, and render them in swim lanes based on status
@@ -100,10 +102,8 @@ export default function ActiveSprint({ setAuthenticated }) {
         <h5 className="active-sprint-header-item">
           {sprint.name}{" "}
           <span className="dates">
-            <em>
-              {sprint.createdDate || "start date"} -{" "}
-              {sprint.endDate || "end date"}
-            </em>
+            <Moment format="MMM DD">{sprint.startDate}</Moment> -{" "}
+            <Moment format="MMM DD">{sprint.endDate}</Moment>
           </span>
         </h5>{" "}
         <h5 className="active-sprint-header-item points">

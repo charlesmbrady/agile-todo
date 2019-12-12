@@ -5,6 +5,7 @@ import API from "../../utils/API.js";
 import CreateSprint from "./modals/CreateSprint";
 import CreateTodo from "./modals/CreateTodo";
 import EditTodo from "./modals/EditTodo";
+import Moment from "react-moment";
 import { Table } from "reactstrap";
 import TodoListItem from "../../components/TodoListItem/TodoListItem";
 
@@ -97,12 +98,29 @@ export default function Backlog({ setAuthenticated }) {
         {sprintsList
           .filter(sprint => sprint.status !== "completed")
           .map((sprint, i) => {
+            {
+              var sprintPoints = 0;
+              todosList.forEach(todo => {
+                if (todo.sprint === sprint._id) {
+                  sprintPoints += todo.points;
+                }
+              });
+            }
             return (
               <div className="sprint-wrapper">
                 <div className="sprint-header-wrapper">
                   <h6 className="sprint-header-item sprint-name">
                     {sprint.name}
                   </h6>
+                  <div className="sprint-header-item">
+                    <div className="sprint-date">
+                      <Moment format="MMM DD">{sprint.startDate}</Moment> -{" "}
+                      <Moment format="MMM DD">{sprint.endDate}</Moment>
+                    </div>
+                  </div>
+                  <div className="sprint-header-item sprint-points">
+                    {sprintPoints} points
+                  </div>
                   {hasActiveSprint === false && i === 0 && (
                     <button
                       id="start-sprint-button"
@@ -119,7 +137,7 @@ export default function Backlog({ setAuthenticated }) {
                       No todos for this sprint yet...
                     </div>
                   )}
-                  <Table responsive hover>
+                  <Table responsive>
                     <tbody>
                       {todosList
                         .filter(todo => todo.sprint === sprint._id)

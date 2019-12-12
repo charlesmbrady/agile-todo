@@ -15,12 +15,14 @@ import {
 
 export default function CreateSprint({ isOpen, toggle, userId }) {
   const [name, setName] = useState(null);
-  const [pointsProjection, setPointsProjection] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const createSprint = () => {
     const sprint = {
       name,
-      pointsProjection,
+      startDate,
+      endDate,
       user: userId
     };
     API.createSprint(sprint).then(sprintResponse => {
@@ -32,8 +34,10 @@ export default function CreateSprint({ isOpen, toggle, userId }) {
 
   return (
     <Modal className="my-modal" isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}>Create Sprint</ModalHeader>
-      <ModalBody>
+      <ModalHeader className="my-modal" toggle={toggle}>
+        Create Sprint
+      </ModalHeader>
+      <ModalBody className="my-modal">
         <Form>
           <FormGroup>
             <Label for="subject">Name</Label>
@@ -48,19 +52,30 @@ export default function CreateSprint({ isOpen, toggle, userId }) {
           </FormGroup>
 
           <FormGroup>
-            <Label for="pointsProjection">Points Projection</Label>
+            <Label for="startDate">Start Date</Label>
             <Input
-              type="number"
-              name="number"
-              id="pointsProjection"
-              placeholder=""
-              value={pointsProjection}
-              onChange={e => setPointsProjection(e.target.value)}
+              type="date"
+              name="startDate"
+              id="startDate"
+              placeholder="date placeholder"
+              value={startDate}
+              onChange={e => setStartDate(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="endDate">End Date</Label>
+            <Input
+              type="date"
+              name="endDate"
+              id="endDate"
+              placeholder="date placeholder"
+              value={endDate}
+              onChange={e => setEndDate(e.target.value)}
             />
           </FormGroup>
         </Form>
       </ModalBody>
-      <ModalFooter>
+      <ModalFooter className="my-modal">
         <Button color="primary" onClick={() => createSprint()}>
           Submit
         </Button>{" "}

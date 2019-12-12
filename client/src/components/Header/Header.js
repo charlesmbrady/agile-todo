@@ -31,7 +31,6 @@ export default function Header({ authenticated, setAuthenticated, setUser }) {
   const logout = () => {
     AUTH.logout().then(res => {
       if (res.status === 200) {
-        console.log("logged out");
         setAuthenticated(false);
         setUser({});
       }
