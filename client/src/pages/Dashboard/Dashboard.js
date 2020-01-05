@@ -4,19 +4,13 @@ import AUTH from "../../utils/AUTH";
 import API from "../../utils/API";
 // import Moment from "react-moment";
 import { Line } from "react-chartjs-2";
+import { Form, FormGroup, Label, Input } from "reactstrap";
 
 export default function Dashboard({ setAuthenticated }) {
   const [events, setEvents] = useState([]);
+  const [sprint, setSprint] = useState();
   const [sprints, setSprints] = useState([]);
-  const [data, setData] = useState({
-    labels: ["1", "2", "3", "4", "5", "6"],
-    datasets: [
-      {
-        label: "Burn",
-        data: [0, 2, 2, 3, 3, 5]
-      }
-    ]
-  });
+  const [data, setData] = useState();
 
   useEffect(() => {
     AUTH.checkToken().then(res => {
@@ -30,6 +24,12 @@ export default function Dashboard({ setAuthenticated }) {
     });
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (sprint !== undefined) {
+      getBurnup(sprint);
+    }
+  }, [sprint]);
 
   const getBurnup = id => {
     API.getBurnupData(id).then(response => {
@@ -48,33 +48,48 @@ export default function Dashboard({ setAuthenticated }) {
 
   return (
     <div>
-      <div className="chart">
-        <Line
-          data={data}
-          options={{
-            responsive: true,
-            scales: {
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true
+      <Form>
+        <FormGroup>
+          <Label for="sprint">Sprint</Label>
+          <Input
+            type="select"
+            name="select"
+            id="sprint"
+            value={sprint}
+            onChange={e => setSprint(e.target.value)}
+          >
+            <option value={""}>Select Sprint</option>
+            {sprints
+              .reverse()
+              .filter(sprint => sprint.status !== "notStarted")
+              .map((sprint, i) => (
+                <option key={i} value={sprint._id}>
+                  {sprint.name}
+                </option>
+              ))}
+          </Input>
+        </FormGroup>
+      </Form>
+      {data && (
+        <div className="chart">
+          <Line
+            data={data}
+            options={{
+              responsive: true,
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true
+                      // suggestedMax: totalPoints
+                    }
                   }
-                }
-              ]
-            }
-          }}
-        />
-      </div>
-      <div>
-        {sprints
-          .reverse()
-          .filter(sprint => sprint.status !== "notStarted")
-          .map(sprint => (
-            <div onClick={() => getBurnup(sprint._id)}>
-              Name: {sprint.name} ID: {sprint._id}
-            </div>
-          ))}
-      </div>
+                ]
+              }
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
