@@ -52,7 +52,16 @@ export default function Dashboard({ setAuthenticated }) {
         <Line
           data={data}
           options={{
-            responsive: true
+            responsive: true,
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }
+              ]
+            }
           }}
         />
       </div>

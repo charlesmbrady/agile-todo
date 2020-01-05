@@ -10,7 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
-  background: #c7ffda;
+  background: rgba(114, 255, 48, 0.733);
   color: #00064a;
   /* background-image: linear-gradient(to bottom right, #fefdff, #c3c9ff); */
   /* background-repeat: no-repeat; */
