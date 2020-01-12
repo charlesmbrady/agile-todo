@@ -3,3 +3,9 @@
   margin: 0 auto;
   background: white;
 }
+
+.myform {
+  width: 100%;
+  max-width: 300px;
+  margin: 15px;
+}

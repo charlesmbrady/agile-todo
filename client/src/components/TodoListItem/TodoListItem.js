@@ -11,10 +11,15 @@ export default function TodoListItem({ todo, setTodo }) {
       animate={{ x: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {/* <td>{todo.type}</td> */}
-      <td>{todo.subject}</td>
-      <td>{todo.priority}</td>
-      <td>{todo.points}</td>
+      <td className={todo.status === "completed" && "complete"}>
+        {todo.subject}
+      </td>
+      <td className={todo.status === "completed" && "complete"}>
+        {todo.priority}
+      </td>
+      <td className={todo.status === "completed" && "complete"}>
+        {todo.points}
+      </td>
     </motion.tr>
   );
 }

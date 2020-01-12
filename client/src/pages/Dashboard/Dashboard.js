@@ -12,6 +12,8 @@ export default function Dashboard({ setAuthenticated }) {
   const [sprints, setSprints] = useState([]);
   const [data, setData] = useState();
 
+  // TODO: Look up ReCharts instead of chart.js
+
   useEffect(() => {
     AUTH.checkToken().then(res => {
       if (res.status === 200) {
@@ -48,9 +50,9 @@ export default function Dashboard({ setAuthenticated }) {
 
   return (
     <div>
-      <Form>
+      <Form className="myform">
         <FormGroup>
-          <Label for="sprint">Sprint</Label>
+          <Label for="sprint">Select Sprint to display burnup chart:</Label>
           <Input
             type="select"
             name="select"

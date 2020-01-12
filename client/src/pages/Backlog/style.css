@@ -71,7 +71,7 @@
 }
 
 .sprints-section {
-  border-bottom: 5px solid black;
+  border-bottom: 3px solid white;
   padding-bottom: 20px;
   margin-bottom: 15px;
 }
@@ -93,4 +93,7 @@
 .sprint-date {
   font-style: italic;
   font-size: 85%;
+}
+.list-section-header {
+  font-family: Georgia, "Times New Roman", Times, serif;
 }

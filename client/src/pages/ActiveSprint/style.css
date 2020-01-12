@@ -12,6 +12,7 @@
 }
 .active-sprint-header-item {
   display: inline-block;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 .active-sprint-header-item:first {
   float: left;
@@ -42,10 +43,12 @@
 }
 
 #end-sprint-button {
-  background: rgb(218, 201, 176);
+  background: blanchedalmond;
   border-radius: 7px;
   color: black;
   font-weight: bold;
+  padding: 7px;
+  font-size: 13px;
 }
 #end-sprint-button:hover {
   background: rgb(129, 119, 104);

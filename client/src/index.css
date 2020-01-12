@@ -1,7 +1,3 @@
-html {
-  height: 100vh;
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -9,12 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
-  background: rgba(114, 255, 48, 0.733);
+  height: 100;
+  /* background: rgba(114, 255, 48, 0.733); */
   color: #00064a;
-  /* background-image: linear-gradient(to bottom right, #fefdff, #c3c9ff); */
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
+  background-image: linear-gradient(to bottom right, #fefdff, #c3c9ff);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 code {

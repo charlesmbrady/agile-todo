@@ -3,8 +3,8 @@
 }
 
 .home-head {
-  color: white;
-  text-shadow: 2px 1px 9px black;
+  color: gray;
+  /* text-shadow: 1px 1px 5px black; */
   text-align: center;
   padding: 2%;
 }

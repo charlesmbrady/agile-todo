@@ -92,7 +92,7 @@ export default function Backlog({ setAuthenticated }) {
         </button>
       </div>
       <div className="sprints-section">
-        <h3>Sprints</h3>
+        <h3 className="list-section-header">Sprints</h3>
         {sprintsList.filter(sprint => sprint.status !== "completed").length ===
           0 && <div className="no-list">No sprints...</div>}
         {sprintsList
@@ -158,7 +158,7 @@ export default function Backlog({ setAuthenticated }) {
 
       <div className="backlog-todos-wrapper">
         <div className="backlog-todos-header-wrapper">
-          <h3>Backlog</h3>
+          <h3 className="list-section-header">Backlog</h3>
         </div>
         <div className="backlog-todos-body-wrapper">
           {backlogTodos.length === 0 && (
