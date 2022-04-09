@@ -9,7 +9,7 @@
     "framer-motion": "^1.6.15",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "^16.11.0",
     "react-chartjs-2": "^2.8.0",
     "react-dom": "^16.11.0",
